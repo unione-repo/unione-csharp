@@ -1,11 +1,22 @@
-﻿namespace UniOne;
+﻿using AutoMapper;
+using UniOne.Models;
+
+namespace UniOne;
 
 public class System
 {
-    public IOperationResult SystemInfo()
-    {
-        var result = new OperationResult();
+    private readonly IApiConnection _apiConnection;
+    private readonly IMapper _mapper;
 
-        return result;
+    public System(IApiConnection apiConnection, IMapper mapper)
+    {
+        _apiConnection = apiConnection;
+        _mapper = mapper;
     }
+    // public IOperationResult<SystemInfo> SystemInfo()
+    // {
+    //     var result = new OperationResult<SystemInfo>();
+    //
+    //     return result;
+    // }
 }

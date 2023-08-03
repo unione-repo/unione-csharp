@@ -3,7 +3,7 @@ using UniOne.Exceptions;
 
 namespace UniOne.Models;
 
-public class EmailRecipient
+public class EmailRecipientData
 {
     private string? _name { get; set; }
     private string _emailAddress { get; set; }
@@ -20,11 +20,11 @@ public class EmailRecipient
     public string Campaign_Id => _campaign_id;
     public object Substitutions => _substitutions;
     
-    public EmailRecipient()
+    public EmailRecipientData()
     {
     }
 
-    private EmailRecipient(string name, string emailAddress, string customerId, string campaignId, string customerHash, object substitutions)
+    private EmailRecipientData(string name, string emailAddress, string customerId, string campaignId, string customerHash, object substitutions)
     {
         _name = name;
         _emailAddress = emailAddress;
@@ -34,14 +34,14 @@ public class EmailRecipient
         _substitutions = substitutions;
     }
 
-    public static EmailRecipient CreateRecipient(string name, string emailAddress, string customerId, string campaignId, string customerHash, object substitutions)
+    public static EmailRecipientData CreateRecipient(string name, string emailAddress, string customerId, string campaignId, string customerHash, object substitutions)
     {
         Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 
         Match match = regex.Match(emailAddress);
 
         if (match.Success)
-            return new EmailRecipient(name, emailAddress, customerId, campaignId, customerHash,substitutions);
+            return new EmailRecipientData(name, emailAddress, customerId, campaignId, customerHash,substitutions);
         else
             throw new IncorrectEmailAdressException(emailAddress + " is not valid email address!");
     }

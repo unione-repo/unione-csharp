@@ -13,7 +13,7 @@ public class EmailRecipientTests
             Dictionary<string, string> substitutionsDict = ParseSubstitutions(substitutions);
 
             // Act
-            var recipient = EmailRecipient.CreateRecipient(name, emailAddress, customerId, campaignId, customerHash, substitutionsDict);
+            var recipient = EmailRecipientData.CreateRecipient(name, emailAddress, customerId, campaignId, customerHash, substitutionsDict);
 
             // Assert
             Assert.Equal(name, recipient.Name);
@@ -33,7 +33,7 @@ public class EmailRecipientTests
             // Arrange
 
             // Act & Assert
-            Assert.Throws<IncorrectEmailAdressException>(() => EmailRecipient.CreateRecipient("Test Name", invalidEmailAddress, "12345", "campaign123", "hash123", null));
+            Assert.Throws<IncorrectEmailAdressException>(() => EmailRecipientData.CreateRecipient("Test Name", invalidEmailAddress, "12345", "campaign123", "hash123", null));
         }
 
         private Dictionary<string, string> ParseSubstitutions(string substitutions)

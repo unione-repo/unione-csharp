@@ -1,32 +1,42 @@
-﻿namespace UniOne;
+﻿using AutoMapper;
+
+namespace UniOne;
 
 public class EventDump
 {
-    public IOperationResult Create()
+    private readonly IApiConnection _apiConnection;
+    private readonly IMapper _mapper;
+
+    public EventDump(IApiConnection apiConnection, IMapper mapper)
     {
-        var result = new OperationResult();
-
-        return result;
+        _apiConnection = apiConnection;
+        _mapper = mapper;
     }
-
-    public IOperationResult Get()
-    {
-        var result = new OperationResult();
-
-        return result;
-    }
-
-    public IOperationResult List()
-    {
-        var result = new OperationResult();
-
-        return result;
-    }
-
-    public IOperationResult Detele()
-    {
-        var result = new OperationResult();
-
-        return result;
-    }
+    // public IOperationResult Create()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
+    //
+    // public IOperationResult Get()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
+    //
+    // public IOperationResult List()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
+    //
+    // public IOperationResult Detele()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
 }

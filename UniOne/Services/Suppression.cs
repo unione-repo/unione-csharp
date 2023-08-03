@@ -1,32 +1,42 @@
-﻿namespace UniOne;
+﻿using AutoMapper;
+
+namespace UniOne;
 
 public class Suppression
 {
-    public IOperationResult Set()
+    private readonly IApiConnection _apiConnection;
+    private readonly IMapper _mapper;
+
+    public Suppression(IApiConnection apiConnection, IMapper mapper)
     {
-        var result = new OperationResult();
-
-        return result;
+        _apiConnection = apiConnection;
+        _mapper = mapper;
     }
-
-    public IOperationResult Get()
-    {
-        var result = new OperationResult();
-
-        return result;
-    }
-
-    public IOperationResult List()
-    {
-        var result = new OperationResult();
-
-        return result;
-    }
-
-    public IOperationResult Delete()
-    {
-        var result = new OperationResult();
-
-        return result;
-    }
+    // public IOperationResult Set()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
+    //
+    // public IOperationResult Get()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
+    //
+    // public IOperationResult List()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
+    //
+    // public IOperationResult Delete()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
 }

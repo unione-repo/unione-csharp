@@ -1,25 +1,47 @@
-﻿namespace UniOne;
+﻿using UniOne.Models;
+using System.Collections.Generic;
+using AutoMapper;
+
+namespace UniOne;
 
 public class Obsolete
 {
-    public IOperationResult UnsubscribedSet()
-    {
-        var result = new OperationResult();
+    private readonly IApiConnection _apiConnection;
+    private readonly IMapper _mapper;
 
-        return result;
+    public Obsolete(IApiConnection apiConnection, IMapper mapper)
+    {
+        _apiConnection = apiConnection;
+        _mapper = mapper;
+    }
+    public UnsubscibedData UnsubscribedSet(string emailAddress)
+    {
+        string response = "";
+        var apiResponse = _apiConnection.SendMessage("unsubscribed/set.json", EmailAddressData.CreateNew(emailAddress), out response);
+        var result = OperationResult.CreateNew(response,apiResponse);
+
+        var mappedResult = _mapper.Map<UnsubscibedData>(result);
+        
+        return mappedResult;
     }
 
-    public IOperationResult UnsubscribedCheck()
+    public UnsubscibedData UnsubscribedCheck(string emailAddress)
     {
-        var result = new OperationResult();
+        string response = "";
+        var apiResponse = _apiConnection.SendMessage("unsubscribed/check.json", EmailAddressData.CreateNew(emailAddress), out response);
+        var result = OperationResult.CreateNew(response,apiResponse);
 
-        return result;
+        var mappedResult = _mapper.Map<UnsubscibedData>(result);
+        
+        return mappedResult;
     }
 
-    public IOperationResult UnsubscribedList()
+    public IEnumerable<UnsubscibedData> UnsubscribedList(string emailAddress)
     {
-        var result = new OperationResult();
+        string response = "";
+        var apiResponse = _apiConnection.SendMessage("unsubscribed/list.json", EmailAddressData.CreateNew(emailAddress), out response);
+        var result = OperationResult.CreateNew(response,apiResponse);
 
-        return result;
+        return new List<UnsubscibedData>();
     }
 }

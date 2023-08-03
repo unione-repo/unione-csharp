@@ -1,18 +1,29 @@
-﻿namespace UniOne;
+﻿using AutoMapper;
+
+namespace UniOne;
 
 public class Tag
 {
-    public IOperationResult List()
+    private readonly IApiConnection _apiConnection;
+    private readonly IMapper _mapper;
+
+    public Tag(IApiConnection apiConnection, IMapper mapper)
     {
-        var result = new OperationResult();
-
-        return result;
+        _apiConnection = apiConnection;
+        _mapper = mapper;
     }
-
-    public IOperationResult Detele()
-    {
-        var result = new OperationResult();
-
-        return result;
-    }
+    
+    // public IOperationResult List()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
+    //
+    // public IOperationResult Detele()
+    // {
+    //     var result = new OperationResult();
+    //
+    //     return result;
+    // }
 }

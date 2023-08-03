@@ -2,7 +2,7 @@
 
 namespace UniOne;
 
-public class ApiConfiguration
+public class ApiConfiguration : IApiConfiguration
 {
     private string _serverAddress { get; set; }
     private string _apiUrl { get; set; }
@@ -42,4 +42,5 @@ public class ApiConfiguration
     }
 
     public string GetApiUrl() => _serverAddress + _apiUrl + _apiVersion;
+    public string GetApiKey() => _apiKey;
 }

@@ -1,6 +1,6 @@
 ﻿namespace UniOne.Models;
 
-public class Accounting
+public class AccountingData
 {
     private DateTime _periodStart { get; set; }
     private DateTime _periodEnd { get; set; }
@@ -12,12 +12,12 @@ public class Accounting
     public int EmailsIncluded => _emailsIncluded;
     public int EmailsSent => _emailsSent;
 
-    public Accounting()
+    public AccountingData()
     {
         
     }
 
-    private Accounting(DateTime periodStart, DateTime periodEnd, int emailsIncluded, int emailsSent)
+    private AccountingData(DateTime periodStart, DateTime periodEnd, int emailsIncluded, int emailsSent)
     {
         _periodStart = periodStart;
         _periodEnd = periodEnd;
@@ -25,8 +25,8 @@ public class Accounting
         _emailsSent = emailsSent;
     }
 
-    public Accounting CreateNew(DateTime periodStart, DateTime periodEnd, int emailsIncluded, int emailsSent)
+    public AccountingData CreateNew(DateTime periodStart, DateTime periodEnd, int emailsIncluded, int emailsSent)
     {
-        return new Accounting(periodStart, periodEnd, emailsIncluded, emailsSent);
+        return new AccountingData(periodStart, periodEnd, emailsIncluded, emailsSent);
     }
 }
