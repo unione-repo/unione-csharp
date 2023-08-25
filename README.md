@@ -47,43 +47,53 @@ Library implements those classes with their respective methods. For more detail 
 Method related to sending emails.
 - async Task<EmailResponseData> Send(EmailMessageData message)
 - async Task<IOperationResult<string>> Subscribe(string fromEmail, string fromName, string toEmail)
+
 **EmailValidation**
 - async Task<EmailValidationData> ValidationSingle(string emailAddress)
+
 **Template**
 - async Task<IOperationResult<string>> Set(TemplateData templateData)
 - async Task<TemplateData> Get(string id)
 - async Task<TemplateList> List(int limit = 50, int offset = 0)
 - async Task<IOperationResult<string>> Detele(string id)
+
 **Webhook**
 - async Task<IOperationResult<string>> Set(WebhookData webhookData)
 - async Task<WebhookData> Get(string url)
 - async Task<WebhookData> List(int limit = 50, int offset = 0)
 - async Task<IOperationResult<string>> Delete(string url)
+
 **Suppression**
 - async Task<SuppressionData> Set(string email, string cause, DateTime created)
 - async Task<SuppressionData> Get(string email, bool all_projects)
 - async Task<SuppressionData> List(string cause ="" , string source = "" , DateTime? start_time = null, string cursor = "", int limit = 50)
 - async Task<SuppressionData> Delete(string email)
+
 **Domain**
 - async Task<DomainData> GetDNSRecords(string domain)
 - async Task<DomainData> ValidateVerificationRecord(string domain)
 - async Task<DomainData> ValidateDkim(string domain)
 - async Task<DomainList> List(string domain, int limit = 50,int offset = 0 )
+
 **EventDump**
 - async Task<IOperationResult<string>> Create(EventDumpRequest request)
 - async Task<EventDumpRequest> Get(string dumpId)
 - async Task<EventDumpList> List(int limit = 50, int offset = 0)
 - async Task<IOperationResult<string>> Detele(string dumpId)
+
 **Tag**
 - async Task<TagList> List()
 - async Task<IOperationResult<string>> Detele(int tagId)
+
 **Project**
 - async Task<ProjectInputData> Create(string name, string country, bool send_enabled, bool custom_unsubscribe_url_enabled, int backendId)
 - async Task<ProjectInputData> Update(string id,string name, string country, bool send_enabled, bool custom_unsubscribe_url_enabled, int backendId)
 - async Task<ProjectDataList> List(string project_id = "" , string project_api_key = "")
 - async Task<IOperationResult<string>> Delete(string id, string project_api_key)
+
 **System**
 - async Task<SystemInfoData> SystemInfo()
+
 **Obsolete**
 - async Task<UnsubscribedData> UnsubscribedSet(string emailAddress)
 - async Task<UnsubscribedData> UnsubscribedCheck(string emailAddress)
