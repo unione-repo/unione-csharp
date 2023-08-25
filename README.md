@@ -1,10 +1,10 @@
 # unione-csharp
 UniOne Email API C# library
 
-##Instalation
+## Instalation
 Add UniOne library to your project references.
 
-##Usage
+## Usage
 ###Configuration
 First step is adding necessary configuration to your appsettings.json file.
 
@@ -29,7 +29,7 @@ Where:
 **ServerTimeout** - Default 5 seconds timeout
 **EnableLogging** - Set to true if you want to generate logs for library
 
-###Creating UniOne instance
+### Creating UniOne instance
 
 ```
 var uniOne = new UniOne.UniOne(configuration);
