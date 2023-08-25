@@ -1,16 +1,29 @@
-﻿namespace UniOne.Models;
+﻿using Newtonsoft.Json;
+
+namespace UniOne.Models;
 
 public class AccountingData
 {
-    private DateTime _periodStart { get; set; }
-    private DateTime _periodEnd { get; set; }
-    private int _emailsIncluded { get; set; }
-    private int _emailsSent { get; set; }
-
-    public DateTime PeriodStart => _periodStart;
-    public DateTime PeriodEnd => _periodEnd;
-    public int EmailsIncluded => _emailsIncluded;
-    public int EmailsSent => _emailsSent;
+    /// <summary>
+    /// Date and time of accounting period start in UTC in “YYYY-MM-DD hh:mm:ss” format.
+    /// </summary>
+    [JsonProperty("period_start")]
+    public DateTime PeriodStart { get; set; }
+    /// <summary>
+    /// Date and time of accounting period end in UTC in “YYYY-MM-DD hh:mm:ss” format.
+    /// </summary>
+    [JsonProperty("period_end")]
+    public DateTime PeriodEnd { get; set; }
+    /// <summary>
+    /// Number of emails included into accounting period.
+    /// </summary>
+    [JsonProperty("emails_included")]
+    public int EmailsIncluded { get; set; }
+    /// <summary>
+    /// Number of emails sent during accounting period. Can be bigger than emails_included in case of overage.
+    /// </summary>
+    [JsonProperty("emails_sent")]
+    public int EmailsSent { get; set; }
 
     public AccountingData()
     {
@@ -19,13 +32,13 @@ public class AccountingData
 
     private AccountingData(DateTime periodStart, DateTime periodEnd, int emailsIncluded, int emailsSent)
     {
-        _periodStart = periodStart;
-        _periodEnd = periodEnd;
-        _emailsIncluded = emailsIncluded;
-        _emailsSent = emailsSent;
+        PeriodStart = periodStart;
+        PeriodEnd = periodEnd;
+        EmailsIncluded = emailsIncluded;
+        EmailsSent = emailsSent;
     }
 
-    public AccountingData CreateNew(DateTime periodStart, DateTime periodEnd, int emailsIncluded, int emailsSent)
+    public static AccountingData CreateNew(DateTime periodStart, DateTime periodEnd, int emailsIncluded, int emailsSent)
     {
         return new AccountingData(periodStart, periodEnd, emailsIncluded, emailsSent);
     }

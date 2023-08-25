@@ -1,24 +1,38 @@
 ﻿using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 using UniOne.Exceptions;
 
 namespace UniOne.Models;
 
 public class EmailRecipientData
 {
-    private string? _name { get; set; }
-    private string _emailAddress { get; set; }
-    private string _customerId { get; set; }
-    private string _campaign_id { get; set; }
-    private string _customer_hash { get; set; }
-    private object? _substitutions { get; set; }
-
-
-    public string? Name => _name;
-    public string EmailAddress => _emailAddress;
-    public string CustomerId => _customerId;
-    public string CustomerHash => _customer_hash;
-    public string Campaign_Id => _campaign_id;
-    public object Substitutions => _substitutions;
+    /// <summary>
+    /// Recipient email
+    /// </summary>
+    [JsonProperty("name")]
+    public string? Name { get; set; }
+    [JsonProperty("email")]
+    public string EmailAddress { get; set; }
+    public string CustomerId { get; set; }
+    [JsonProperty("campaign_id")]
+    public string Campaign_id { get; set; }
+    [JsonProperty("customer_hash")]
+    public string Customer_hash { get; set; }
+    
+    /// <summary>
+    /// Object to pass the substitutions(merge tags) for the recipient (e.g. recipient name, discount code, password change link, etc. See Template engines). The substitutions can be used in the following parameters:
+    ///    body.html
+    ///    body.plaintext
+    ///    body.amp
+    ///    subject
+    ///    from_name
+    ///    headers[“List-Unsubscribe”]
+    ///    options.unsubscribe_url
+    ///
+    /// A substitution name can consist from latin characters, numbers and “_” symbol, and should start with the letter. There’s a special substitution “to_name” which is used to put recipent’s name like “Name Surname” to include it to SMTP header “To” in the form “Name Surname <email@example.com>”. The “to_name” length is limited to 78 symbols.
+    /// </summary>
+    [JsonProperty("substitutions")]
+    public object? Substitutions { get; set; }
     
     public EmailRecipientData()
     {
@@ -26,12 +40,12 @@ public class EmailRecipientData
 
     private EmailRecipientData(string name, string emailAddress, string customerId, string campaignId, string customerHash, object substitutions)
     {
-        _name = name;
-        _emailAddress = emailAddress;
-        _customerId = customerId;
-        _customer_hash = customerHash;
-        _campaign_id = campaignId;
-        _substitutions = substitutions;
+        Name = name;
+        EmailAddress = emailAddress;
+        CustomerId = customerId;
+        Customer_hash = customerHash;
+        Campaign_id = campaignId;
+        Substitutions = substitutions;
     }
 
     public static EmailRecipientData CreateRecipient(string name, string emailAddress, string customerId, string campaignId, string customerHash, object substitutions)

@@ -2,15 +2,13 @@
 
 public class EmailAddressData
 {
-    private string _address { get; set; }
-
-    public string GetEmailAddress() => _address;
+    public string Address { get; set; }
     
-    private EmailAddressData(){}
+    public EmailAddressData(){}
 
     private EmailAddressData(string address)
     {
-        _address = address;
+        Address = address;
     }
 
     public static EmailAddressData CreateNew(string emailAddress)

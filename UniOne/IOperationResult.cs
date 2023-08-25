@@ -1,6 +1,6 @@
 ﻿namespace UniOne;
 
-public interface IOperationResult
+public interface IOperationResult<T> where T: class
 {
     string GetStatus();
     string GetMessage();

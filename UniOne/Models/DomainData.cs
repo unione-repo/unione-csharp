@@ -1,30 +1,47 @@
-﻿namespace UniOne.Models;
+﻿using Newtonsoft.Json;
+
+namespace UniOne.Models;
 
 public class DomainData
 {
-    private string _domain { get; set; }
-    private int _limit { get; set; }
-    private int _offset { get; set; }
-    private string _status { get; set; }
-    private string _verification_record { get; set; }
-    private string _dkim { get; set; }
+    /// <summary>
+    /// Domain to get DNS records for.
+    /// </summary>
+    [JsonProperty("domain")]
+    public string Domain { get; set; }
+    public int Limit { get; set; }
+    public int Offset { get; set; }
+    [JsonProperty("status")]
+    public string Status { get; set; }
+    /// <summary>
+    /// Record to be added “as is” to verify ownership of this domain.
+    /// </summary>
+    
+    public string Verification_record { get; set; }
+    /// <summary>
+    /// DKIM signature for the domain. This property contains only the key part, you should prepend it with “k=rsa, p=” part for the record to be valid (see example).
+    /// </summary>
+    public string sDkim { get; set; }
+    /// <summary>
+    /// Object describing verification record value and status.
+    /// </summary>
+    [JsonProperty("verification-record")]
+    public VerificationRecord VerificationRecord { get; set; }
+    /// <summary>
+    /// Object describing DKIM record value and status.
+    /// </summary>
+    [JsonProperty("dkim")]
+    public DKIM DKIM { get; set; }
 
-    public string Domain => _domain;
-    public int Limit => _limit;
-    public int Offset => _offset;
-    public string Status => _status;
-    public string VerificationRecord => _verification_record;
-    public string DKIM => _dkim;
-
-    private DomainData()
+    public DomainData()
     {
     }
 
     private DomainData(string domain, int limit = 50, int offset = 0)
     {
-        _domain = domain;
-        _limit = limit;
-        _offset = offset;
+        Domain = domain;
+        Limit = limit;
+        Offset = offset;
     }
 
     public static DomainData CreateNew(string domain, int limit = 50, int offset = 0)
@@ -33,20 +50,31 @@ public class DomainData
     }
 }
 
+public class DomainList
+{
+    public string status { get; set; }
+    public IEnumerable<DomainData> domains { get; set; }
+}
+
 public class VerificationRecord
 {
-    private string _value { get; set; }
-    private string _status { get; set; }
-
-    public string Value => _value;
-    public string Status => _status;
-
-    private VerificationRecord(){}
+    /// <summary>
+    /// Record to be added “as is” to verify ownership of this domain.
+    /// </summary>
+    [JsonProperty("value")]
+    public string Value { get; set; }
+    /// <summary>
+    /// Only domains with “confirmed” verification record are allowed as sender domains.
+    /// </summary>
+    [JsonProperty("status")]
+    public string Status { get; set; }
+    
+    public VerificationRecord(){}
 
     private VerificationRecord(string value, string status)
     {
-        _value = value;
-        _status = status;
+        Value = value;
+        Status = status;
     }
 
     public static VerificationRecord CreateNew(string value, string status)
@@ -57,18 +85,23 @@ public class VerificationRecord
 
 public class DKIM
 {
-    private string _key { get; set; }
-    private string _status { get; set; }
-
-    public string Key => _key;
-    public string Status => _status;
+    /// <summary>
+    /// DKIM signature for the domain. This property contains only the key part, you should prepend it with “k=rsa, p=” part for the record to be valid (see domain/get-dns-records).
+    /// </summary>
+    [JsonProperty("key")]
+    public string Key { get; set; }
+    /// <summary>
+    /// Only domains with “active” DKIM record are allowed as sender domains.
+    /// </summary>
+    [JsonProperty("status")]
+    public string Status { get; set; }
     
-    private DKIM(){}
+    public DKIM(){}
 
     private DKIM(string key, string status)
     {
-        _key = key;
-        _status = status;
+        Key = key;
+        Status = status;
     }
 
     public static DKIM CreateNew(string key, string status)

@@ -3,14 +3,14 @@
 public class ApiConfigurationTests
 {
     [Theory]
-    [InlineData("https://example.com", "api", "v1", "apikey123")]
-    [InlineData("https://api.example.com", "v2", "api", "apikey456")]
-    public void CreateNew_ValidConfiguration_ShouldReturnValidApiConfiguration(string serverAddress, string apiUrl, string apiVersion, string apiKey)
+    [InlineData("https://example.com", "api", "v1", "apikey123",true,5)]
+    [InlineData("https://api.example.com", "v2", "api", "apikey456",false,5)]
+    public void CreateNew_ValidConfiguration_ShouldReturnValidApiConfiguration(string serverAddress, string apiUrl, string apiVersion, string apiKey,bool enableLogging, int timeout)
     {
         // Arrange
 
         // Act
-        var apiConfig = ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, apiKey);
+        var apiConfig = ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, apiKey,enableLogging, timeout);
 
         // Assert
         Assert.Equal(serverAddress + "/", apiConfig.ServerAddress);
@@ -20,13 +20,13 @@ public class ApiConfigurationTests
     }
 
     [Theory]
-    [InlineData("", "api", "v1", "apikey123")]
-    [InlineData("https://example.com", "", "v1", "apikey456")]
-    [InlineData("https://example.com", "api", "", "")]
-    public void CreateNew_InvalidConfiguration_ShouldThrowEmptyApiConfigurationException(string serverAddress, string apiUrl, string apiVersion, string apiKey)
+    [InlineData("", "api", "v1", "apikey123",false,5)]
+    [InlineData("https://example.com", "", "v1", "apikey456",false,5)]
+    [InlineData("https://example.com", "api", "", "",false,5)]
+    public void CreateNew_InvalidConfiguration_ShouldThrowEmptyApiConfigurationException(string serverAddress, string apiUrl, string apiVersion, string apiKey, bool enableLogging, int timeout)
     {
         // Arrange, Act & Assert
-        Assert.Throws<EmptyApiConfigurationException>(() => ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, apiKey));
+        Assert.Throws<EmptyApiConfigurationException>(() => ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, apiKey,enableLogging,timeout));
     }
 
     [Theory]
@@ -37,7 +37,7 @@ public class ApiConfigurationTests
     {
         // Arrange
         string expectedApiUrl = serverAddress + "/" + apiUrl + "/" + apiVersion + "/";
-        var apiConfig = ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, "apikey123");
+        var apiConfig = ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, "apikey123",false,5);
 
         // Act
         string actualApiUrl = apiConfig.GetApiUrl();

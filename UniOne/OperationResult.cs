@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace UniOne;
 
-public class OperationResult : IOperationResult
+public class OperationResult<T> : IOperationResult<T> where T: class
 {
     private dynamic _reponseBody { get; set; }
     private string _status { get; set; }
@@ -29,10 +29,10 @@ public class OperationResult : IOperationResult
         _reponseBody = responseBody;
     }
 
-    public static OperationResult CreateNew(string status, string responseBody)
+    public static OperationResult<T> CreateNew(string status, string responseBody)
     {
-        var data = JsonConvert.DeserializeObject<dynamic>(responseBody);
+        var data = JsonConvert.DeserializeObject<T>(responseBody);
         
-        return new OperationResult(status, data);
+        return new OperationResult<T>(status, data);
     }
 }

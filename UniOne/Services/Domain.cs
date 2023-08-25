@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
+using Serilog;
 using UniOne.Models;
 
 namespace UniOne;
@@ -7,54 +9,158 @@ public class Domain
 {
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
+    private readonly ILogger _logger;
+    private ErrorData _error;
 
-    public Domain(IApiConnection apiConnection, IMapper mapper)
+    public Domain(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
         _apiConnection = apiConnection;
         _mapper = mapper;
+        _logger = logger;
     }
     
-    public DomainData GetDNSRecords(string domain)
+    public async Task<DomainData> GetDNSRecords(string domain)
     {
+        _error = null;
+        if(_apiConnection.IsLoggingEnabled())
+            _logger.Information("Domain:GetDNSRecords:domain["+domain+"]");
+     
         string response = "";
-        var apiResponse = _apiConnection.SendMessage("domain/get-dns-records.json", DomainData.CreateNew(domain), out response);
-        var result = OperationResult.CreateNew(response,apiResponse);
+        var apiResponse = await _apiConnection.SendMessageAsync("domain/get-dns-records.json", DomainData.CreateNew(domain));
 
-        var mappedResult = _mapper.Map<DomainData>(result);
-        
-        return mappedResult;
+        if (!apiResponse.Item1.ToLower().Contains("error"))
+        {
+            var result = OperationResult<DomainData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:GetDNSRecords:result:" + result.GetStatus());
+
+            var mappedResult = _mapper.Map<DomainData>(result);
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:GetDNSRecords:END");
+            return mappedResult;
+        }
+        else
+        {
+            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:GetDNSRecords:result:" + result.GetStatus());
+
+            _error = _mapper.Map<ErrorData>(result.GetResponse());
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:GetDNSRecords:END");
+
+            return null;
+        }
     }
     
-    public DomainData ValidateVerificationRecord(string domain)
+    public async Task<DomainData> ValidateVerificationRecord(string domain)
     {
+        _error = null;
+        if(_apiConnection.IsLoggingEnabled())
+            _logger.Information("Domain:ValidateVerificationRecord:domain["+domain+"]");
         string response = "";
-        var apiResponse = _apiConnection.SendMessage("domain/validate-verification-record.json", DomainData.CreateNew(domain), out response);
-        var result = OperationResult.CreateNew(response,apiResponse);
+        var apiResponse = await _apiConnection.SendMessageAsync("domain/validate-verification-record.json", DomainData.CreateNew(domain));
+        if (!apiResponse.Item1.ToLower().Contains("error"))
+        {
+            var result = OperationResult<DomainData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
 
-        var mappedResult = _mapper.Map<DomainData>(result);
-        
-        return mappedResult;
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateVerificationRecord:result:" + result.GetStatus());
+
+            var mappedResult = _mapper.Map<DomainData>(result);
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateVerificationRecord:END");
+            return mappedResult;
+        }
+        else
+        {
+            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateVerificationRecord:result:" + result.GetStatus());
+
+            _error = _mapper.Map<ErrorData>(result.GetResponse());
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateVerificationRecord:END");
+
+            return null;
+        }
     }
     
-    public DomainData ValidateDkim(string domain)
+    public async Task<DomainData> ValidateDkim(string domain)
     {
+        _error = null;
+        if(_apiConnection.IsLoggingEnabled())
+            _logger.Information("Domain:ValidateDkim:domain["+domain+"]");
         string response = "";
-        var apiResponse = _apiConnection.SendMessage("domain/validate-dkim.json", DomainData.CreateNew(domain), out response);
-        var result = OperationResult.CreateNew(response,apiResponse);
+        var apiResponse = await _apiConnection.SendMessageAsync("domain/validate-dkim.json", DomainData.CreateNew(domain));
+        if (!apiResponse.Item1.ToLower().Contains("error"))
+        {
+            var result = OperationResult<DomainData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
 
-        var mappedResult = _mapper.Map<DomainData>(result);
-        
-        return mappedResult;
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateDkim:result:" + result.GetStatus());
+
+            var mappedResult = _mapper.Map<DomainData>(result);
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateDkim:END");
+            return mappedResult;
+        }
+        else
+        {
+            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateDkim:result:" + result.GetStatus());
+
+            _error = _mapper.Map<ErrorData>(result.GetResponse());
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:ValidateDkim:END");
+
+            return null;
+        }
     }
     
-    public DomainData List(string domain, int limit = 50,int offset = 0 )
+    public async Task<DomainList> List(string domain, int limit = 50,int offset = 0 )
     {
-        string response = "";
-        var apiResponse = _apiConnection.SendMessage("domain/list.json", DomainData.CreateNew(domain,limit,offset), out response);
-        var result = OperationResult.CreateNew(response,apiResponse);
+        _error = null;
+        if(_apiConnection.IsLoggingEnabled())
+            _logger.Information("Domain:List:domain["+domain+"]:limit["+limit+"]:offset["+offset+"]");
 
-        var mappedResult = _mapper.Map<DomainData>(result);
-        
-        return mappedResult;
+        string response = "";
+        var apiResponse = await _apiConnection.SendMessageAsync("domain/list.json", DomainData.CreateNew(domain,limit,offset));
+        if (!apiResponse.Item1.ToLower().Contains("error"))
+        {
+            var result = OperationResult<DomainList>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:List:result:" + result.GetStatus());
+            
+            var mappedResult = _mapper.Map<DomainList>(result.GetResponse());
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:List:END");
+            return mappedResult;
+        }
+        else
+        {
+            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:List:result:" + result.GetStatus());
+
+            _error = _mapper.Map<ErrorData>(result.GetResponse());
+
+            if (_apiConnection.IsLoggingEnabled())
+                _logger.Information("Domain:List:END");
+
+            return null;
+        }
     }
+    
+    public ErrorData GetError() => _error;
 }

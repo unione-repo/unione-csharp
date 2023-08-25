@@ -1,6 +1,6 @@
 namespace UniOneTests;
 
-public class EmailRecipientTests
+public class EmailRecipientDataTests
 {
     [Theory]
         [InlineData("John Doe", "john.doe@example.com", "12345", "campaign123", "hash123", null)]
@@ -19,8 +19,8 @@ public class EmailRecipientTests
             Assert.Equal(name, recipient.Name);
             Assert.Equal(emailAddress, recipient.EmailAddress);
             Assert.Equal(customerId, recipient.CustomerId);
-            Assert.Equal(campaignId, recipient.Campaign_Id);
-            Assert.Equal(customerHash, recipient.CustomerHash);
+            Assert.Equal(campaignId, recipient.Campaign_id);
+            Assert.Equal(customerHash, recipient.Customer_hash);
             Assert.Equal(substitutionsDict, recipient.Substitutions);
         }
 

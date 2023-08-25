@@ -1,19 +1,92 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using Serilog;
+
 
 namespace UniOne;
 
 public class UniOne : IUniOne
 {
+    ILogger _logger;
+    IMapper _mapper;
+    IApiConfiguration _apiConfiguration;
+    IApiConnection _apiConnection;
     
-    private static string? _x_api_key = "";
-    private static string? _api_key = "";
-    private static string? _server = "";
-   
-    public static void Configure(IConfiguration configuration)
+    private string? _x_api_key = "";
+    private string? _server = "";
+    private int? _serverTimeout = 5;
+    private bool _enableLogging = false;
+    private string? _apiUrl = "";
+    private string? _apiVersion = "";
+    
+    private readonly Domain _domain;
+    private readonly Email _email;
+    private readonly EmailValidation _emailValidation;
+    private readonly EventDump _eventDump;
+    private readonly Obsolete _obsolete;
+    private readonly Project _project;
+    private readonly Suppression _suppression;
+    private readonly System _system;
+    private readonly Tag _tag;
+    private readonly Template _template;
+    private readonly Webhook _webhook;
+
+    public string X_Api_Key => _x_api_key;
+    public string Server => _server;
+    public int? ServerTimeout => _serverTimeout;
+    public bool EnableLogging => _enableLogging;
+    public string ApiUrl => _apiUrl;
+    private string ApiVersion => _apiVersion;
+
+    public Domain Domain => _domain;
+    public Email Email => _email;
+    public EmailValidation EmailValidation => _emailValidation;
+    public EventDump EventDump => _eventDump;
+    public Obsolete Obsolete => _obsolete;
+    public Project Project => _project;
+    public Suppression Suppression => _suppression;
+    public System System => _system;
+    public Tag Tag => _tag;
+    public Template Template => _template;
+    public Webhook Webhook => _webhook;
+    
+    
+    public UniOne(IConfiguration configuration)
     {
-        _x_api_key = configuration["X-API-KEY"]?.ToString();
-        _api_key = configuration["api_key"]?.ToString();
-        _server = configuration["server"]?.ToString();
+        var config = configuration.GetSection("UniOne");
+        
+        _x_api_key = config["X-API-KEY"]?.ToString();
+        _server = config["ServerAddress"]?.ToString();
+        _serverTimeout = int.Parse(config["ServerTimeout"]?.ToString());
+        _enableLogging = bool.Parse(config["EnableLogging"]);
+        _apiUrl = config["ApiUrl"]?.ToString();
+        _apiVersion = config["ApiVersion"]?.ToString();
+        
+        _logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File("UniOne-.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+        
+        var mapperConfiguration = new MapperConfiguration(cfg => {});
+
+        _mapper = mapperConfiguration.CreateMapper();
+
+        _apiConfiguration =
+            ApiConfiguration.CreateNew(_server, _apiUrl, _apiVersion, _x_api_key, _enableLogging, _serverTimeout.HasValue? _serverTimeout.Value : 5);
+
+        _apiConnection = new ApiConnection(_apiConfiguration);
+        
+
+        _domain = new Domain(_apiConnection, _mapper, _logger);
+        _email = new Email(_apiConnection, _mapper, _logger);
+        _emailValidation = new EmailValidation(_apiConnection, _mapper, _logger);
+        _eventDump = new EventDump(_apiConnection, _mapper, _logger);
+        _obsolete = new Obsolete(_apiConnection, _mapper, _logger);
+        _project = new Project(_apiConnection, _mapper, _logger);
+        _suppression = new Suppression(_apiConnection, _mapper, _logger);
+        _system = new System(_apiConnection, _mapper, _logger);
+        _tag = new Tag(_apiConnection, _mapper, _logger);
+        _template = new Template(_apiConnection, _mapper, _logger);
+        _webhook = new Webhook(_apiConnection, _mapper, _logger);
     }
-    
 }

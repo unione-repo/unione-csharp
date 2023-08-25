@@ -1,22 +1,33 @@
-﻿namespace UniOne.Models;
+﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
+
+namespace UniOne.Models;
 
 public class ErrorData
 {
-    private string _status { get; set; }
-    private string _message { get; set; }
-    private int _errorCode { get; set; }
+    /// <summary>
+    /// “error” string
+    /// </summary>
+    [SourceMember("status")]
+    public string Status { get; set; }
+    /// <summary>
+    /// Human-readable error message in English.
+    /// </summary>
+    [SourceMember("message")]
+    public string Message { get; set; }
+    /// <summary>
+    /// API Error code - https://docs.unione.io/en/web-api-ref#api-errors
+    /// </summary>
+    [SourceMember("code")]
+    public int code { get; set; }
 
-    public string Status => _status;
-    public string Message => _message;
-    public int ErrorCode => _errorCode;
-    
-    private ErrorData(){}
+    public ErrorData(){}
 
-    private ErrorData(string status, string message, int errorCode)
+    private ErrorData(string status, string message, int code)
     {
-        _status = status;
-        _message = message;
-        _errorCode = errorCode;
+        Status = status;
+        Message = message;
+        code = code;
     }
 
     public static ErrorData CreateNew(string status, string message, int errorCode)
