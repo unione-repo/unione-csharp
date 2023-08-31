@@ -132,9 +132,7 @@ Result should look like this:
 ```
   Determining projects to restore...
   All projects are up-to-date for restore.
-  UniOne -> H:\!_G-Group\unione-csharp\UniOne\bin\Debug\net7.0\UniOne.dll
-  UniOneTests -> H:\!_G-Group\unione-csharp\UniOneTests\bin\Debug\net7.0\UniOneTests.dll
-Test run for H:\!_G-Group\unione-csharp\UniOneTests\bin\Debug\net7.0\UniOneTests.dll (.NETCoreApp,Version=v7.0)
+  
 Microsoft (R) Test Execution Command Line Tool Version 17.5.0 (x64)
 Copyright (c) Microsoft Corporation.  All rights reserved.
 
