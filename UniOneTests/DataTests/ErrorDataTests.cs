@@ -17,7 +17,7 @@ public class ErrorDataTests
         Assert.NotNull(errorData);
         Assert.Equal(status, errorData.Status);
         Assert.Equal(message, errorData.Message);
-        Assert.Equal(errorCode, errorData.code);
+        Assert.Equal(errorCode, errorData.Code);
     }
 
     [Fact]
@@ -35,6 +35,6 @@ public class ErrorDataTests
         Assert.NotNull(errorData);
         Assert.Null(errorData.Status);
         Assert.Equal(message, errorData.Message);
-        Assert.Equal(errorCode, errorData.code);
+        Assert.Equal(errorCode, errorData.Code);
     }
 }

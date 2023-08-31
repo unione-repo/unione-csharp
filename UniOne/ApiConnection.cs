@@ -28,7 +28,7 @@ public class ApiConnection: IApiConnection
             client.DefaultRequestHeaders.Add("X-API-KEY", _apiConfiguration.GetApiKey());
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            string requestBody = JsonSerializer.Serialize(request);
+            string requestBody = requestBody = !request.ToString().Contains("{") ? JsonSerializer.Serialize(request) : request.ToString();
 
             var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 

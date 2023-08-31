@@ -30,8 +30,16 @@ public class ApiConfiguration : IApiConfiguration
 
     public static ApiConfiguration CreateNew(string serverAddress, string apiUrl, string apiVersion, string apiKey, bool enableLogging, int timeout)
     {
-        if (string.IsNullOrEmpty(serverAddress) || (string.IsNullOrEmpty(apiUrl) && !apiUrl.Contains(@"/")) || (string.IsNullOrEmpty(apiVersion) && !apiUrl.Contains(@"/") ) || string.IsNullOrEmpty(apiKey))
-            throw new EmptyApiConfigurationException();
+        if (string.IsNullOrEmpty(serverAddress))
+            throw new EmptyApiConfigurationException("Server address cannot be empty!");
+        if (string.IsNullOrEmpty(apiUrl))
+            throw new EmptyApiConfigurationException("ApiUrl cannot be empty!");
+        if (!apiUrl.Contains(@"/"))
+            throw new EmptyApiConfigurationException("ApiUrl is invalid!");
+        if (string.IsNullOrEmpty(apiVersion) && !apiUrl.Contains(@"/") )
+            throw new EmptyApiConfigurationException("ApiVersion is invalid!");
+        if (string.IsNullOrEmpty(apiKey))
+            throw new EmptyApiConfigurationException("ApiKey cannot be empty!");
 
         if (!serverAddress.EndsWith(@"/"))
             serverAddress = serverAddress + @"/";

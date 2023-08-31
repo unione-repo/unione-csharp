@@ -19,7 +19,7 @@ public class ErrorData
     /// API Error code - https://docs.unione.io/en/web-api-ref#api-errors
     /// </summary>
     [SourceMember("code")]
-    public int code { get; set; }
+    public int Code { get; set; }
 
     public ErrorData(){}
 
@@ -27,7 +27,7 @@ public class ErrorData
     {
         Status = status;
         Message = message;
-        code = code;
+        Code = code;
     }
 
     public static ErrorData CreateNew(string status, string message, int errorCode)

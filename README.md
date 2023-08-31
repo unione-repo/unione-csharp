@@ -101,3 +101,80 @@ Method related to sending emails.
 - async Task<UnsubscribedData> UnsubscribedSet(string emailAddress)
 - async Task<UnsubscribedData> UnsubscribedCheck(string emailAddress)
 - async Task<UnsubscribedList> UnsubscribedList(string emailAddress)
+
+**Generic**
+- async Task<IOperationResult<object>> CustomRequest(string request, object obj) - method allowing to send custom request to UniOne API 
+
+Before you send custom request, you have to provide expected class for method result.
+```
+var customRequest = await uniOne.Generic.CustomRequest<TemplateList>("template/list.json", "{\"limit\": 50,\"offset\":0}");
+
+if (customRequest == null)
+{
+    var error = uniOne.Generic.GetError();
+}
+
+```
+
+### Running test 
+
+**Unit tests**
+
+Run RunTests.sh from UniOneTests solution.
+
+```
+$ ./RunTests.sh
+
+```
+
+Result should look like this:
+
+```
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  UniOne -> H:\!_G-Group\unione-csharp\UniOne\bin\Debug\net7.0\UniOne.dll
+  UniOneTests -> H:\!_G-Group\unione-csharp\UniOneTests\bin\Debug\net7.0\UniOneTests.dll
+Test run for H:\!_G-Group\unione-csharp\UniOneTests\bin\Debug\net7.0\UniOneTests.dll (.NETCoreApp,Version=v7.0)
+Microsoft (R) Test Execution Command Line Tool Version 17.5.0 (x64)
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    78, Skipped:     0, Total:    78, Duration: 10 ms - UniOneTests.dll (net7.0)
+
+```
+
+
+**DemoApp/Tests**
+
+From DemoApp directory run Build-and-run.sh which requires 4 arguments:
+
+```
+- **HOST_NAME** is the host for connection.
+- **API_KEY** is the API key used for connection.
+- **WEBHOOK_URL** is the url to set the webhook handler to.
+- **FROM_EMAIL** is the from_email parameter for email/send method.
+```
+
+Example:
+
+```
+
+./Build-and-run.sh https://eu1.unione.io/ MY_API_KEY https://someweb.site myTestAccount@test.ts
+
+```
+
+Script output should look like this:
+
+```
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.73
+Build successfull.
+Error count:0/11
+
+```

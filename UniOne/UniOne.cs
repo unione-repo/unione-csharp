@@ -30,6 +30,7 @@ public class UniOne : IUniOne
     private readonly Tag _tag;
     private readonly Template _template;
     private readonly Webhook _webhook;
+    private readonly Generic _generic;
 
     public string X_Api_Key => _x_api_key;
     public string Server => _server;
@@ -49,6 +50,7 @@ public class UniOne : IUniOne
     public Tag Tag => _tag;
     public Template Template => _template;
     public Webhook Webhook => _webhook;
+    public Generic Generic => _generic;
     
     
     public UniOne(IConfiguration configuration)
@@ -88,5 +90,6 @@ public class UniOne : IUniOne
         _tag = new Tag(_apiConnection, _mapper, _logger);
         _template = new Template(_apiConnection, _mapper, _logger);
         _webhook = new Webhook(_apiConnection, _mapper, _logger);
+        _generic = new Generic(_apiConnection, _mapper, _logger);
     }
 }
