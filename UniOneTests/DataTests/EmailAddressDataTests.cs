@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class EmailAddressDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void EmailAddressData_ConstructedWithValues_HasCorrectProperties()
     {
         // Arrange
@@ -19,7 +21,7 @@ public class EmailAddressDataTests
         Assert.Equal(address, emailAddressData.Address);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EmailAddressData_CreateNew_ReturnsCorrectObject()
     {
         // Arrange

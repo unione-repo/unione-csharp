@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class WebhookDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void EmailStatus_ConstantsAreCorrect()
     {
         // Assert
@@ -15,7 +17,7 @@ public class WebhookDataTests
         Assert.Equal("spam", EmailStatus.Spam);
     }
     
-    [Fact]
+    [AllureXunit]
     public void Event_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -26,7 +28,7 @@ public class WebhookDataTests
         Assert.Null(webhookEvent.Email_status);
     }
     
-    [Fact]
+    [AllureXunit]
     public void EventFormat_ConstantsAreCorrect()
     {
         // Assert
@@ -34,7 +36,7 @@ public class WebhookDataTests
         Assert.Equal("json_post_gzip", EventFormat.Json_Post_Gzip);
     }
     
-    [Fact]
+    [AllureXunit]
     public void WebhookStatus_ConstantsAreCorrect()
     {
         // Assert
@@ -42,7 +44,7 @@ public class WebhookDataTests
         Assert.Equal("disabled", WebhookStatus.Disabled);
     }
     
-    [Fact]
+    [AllureXunit]
     public void WebhookData_InitializeWithDefaultValues()
     {
         // Arrange & Act

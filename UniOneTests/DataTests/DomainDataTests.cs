@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class DomainDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void CreateNew_ShouldReturnValidDomainData()
     {
         // Arrange
@@ -16,7 +18,7 @@ public class DomainDataTests
         Assert.Equal(10, domainData.Offset);
     }
     
-    [Fact]
+    [AllureXunit]
     public void CreateNew_ShouldReturnValidVerificationRecord()
     {
         // Arrange
@@ -29,7 +31,7 @@ public class DomainDataTests
         Assert.Equal("verified", verificationRecord.Status);
     }
     
-    [Fact]
+    [AllureXunit]
     public void CreateNew_ShouldReturnValidDKIM()
     {
         // Arrange

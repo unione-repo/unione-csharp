@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class EmailValidationDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void EmailValidationData_CreateNew_ReturnsValidInstance()
     {
         // Arrange
@@ -34,7 +36,7 @@ public class EmailValidationDataTests
         Assert.Equal(processed_at, validationData.ProcessedAt);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EmailValidationData_PrivateConstructor_CreatesValidInstance()
     {
         // Arrange

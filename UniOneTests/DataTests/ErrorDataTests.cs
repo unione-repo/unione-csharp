@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class ErrorDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void ErrorData_CreateNew_Returns_New_Instance()
     {
         // Arrange
@@ -20,7 +22,7 @@ public class ErrorDataTests
         Assert.Equal(errorCode, errorData.Code);
     }
 
-    [Fact]
+    [AllureXunit]
     public void ErrorData_CreateNew_Handles_Null_Status()
     {
         // Arrange

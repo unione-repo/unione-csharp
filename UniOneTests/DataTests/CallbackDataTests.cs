@@ -1,10 +1,12 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class CallbackDataTests
 {
     public class DeliveryInfoTests
     {
-        [Fact]
+        [AllureXunit]
         public void DeliveryInfo_ConstructedWithValues_HasCorrectProperties()
         {
             // Arrange
@@ -30,7 +32,7 @@ public class CallbackDataTests
             Assert.Equal(ip, deliveryInfo.Ip);
         }
 
-        [Fact]
+        [AllureXunit]
         public void DeliveryInfo_DefaultConstructor_HasDefaultProperties()
         {
             // Arrange & Act
@@ -47,7 +49,7 @@ public class CallbackDataTests
     
     public class EventDataTests
     {
-        [Fact]
+        [AllureXunit]
         public void EventData_ConstructedWithValues_HasCorrectProperties()
         {
             // Arrange
@@ -116,7 +118,7 @@ public class CallbackDataTests
     
     public class WebhookEventTests
     {
-        [Fact]
+        [AllureXunit]
         public void WebhookEvent_ConstructedWithValues_HasCorrectProperties()
         {
             // Arrange
@@ -180,7 +182,7 @@ public class CallbackDataTests
     
     public class EventsByUserTests
     {
-        [Fact]
+        [AllureXunit]
         public void EventsByUser_ConstructedWithValues_HasCorrectProperties()
         {
             // Arrange
@@ -259,7 +261,7 @@ public class CallbackDataTests
     
     public class CallbackTests
     {
-        [Fact]
+        [AllureXunit]
         public void CallbackData_ConstructedWithValues_HasCorrectProperties()
         {
             // Arrange

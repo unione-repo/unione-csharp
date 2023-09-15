@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class EmailMessageDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void Options_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -15,7 +17,7 @@ public class EmailMessageDataTests
         Assert.Null(options.SmtpPoolId);
     }
 
-    [Fact]
+    [AllureXunit]
     public void Options_SetPropertyValues()
     {
         // Arrange
@@ -34,7 +36,7 @@ public class EmailMessageDataTests
         Assert.Equal("pool123", options.SmtpPoolId);
     }
 
-    [Fact]
+    [AllureXunit]
     public void Options_CustomBackendId_SetToNull()
     {
         // Arrange
@@ -47,7 +49,7 @@ public class EmailMessageDataTests
         Assert.Null(options.CustomBackendId);
     }
     
-     [Fact]
+    [AllureXunit]
     public void EmailMessageData_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -79,7 +81,7 @@ public class EmailMessageDataTests
         Assert.Null(emailMessageData.Options);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EmailMessageData_Options_SetToNonNull()
     {
         // Arrange
@@ -93,7 +95,7 @@ public class EmailMessageDataTests
         Assert.Equal(options, emailMessageData.Options);
     }
     
-    [Fact]
+    [AllureXunit]
     public void EmailMessageData_SetPropertyValues()
     {
         // Arrange

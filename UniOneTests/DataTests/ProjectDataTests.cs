@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class ProjectDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void ProjectInputData_CreateNew_ReturnsValidInstance()
     {
         // Arrange
@@ -20,7 +22,7 @@ public class ProjectDataTests
         Assert.Equal(status, projectInputData.Status);
     }
     
-        [Fact]
+    [AllureXunit]
     public void ProjectData_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -36,7 +38,7 @@ public class ProjectDataTests
         Assert.Equal(0, projectData.Backend_id);
     }
 
-    [Fact]
+    [AllureXunit]
     public void ProjectData_CreateNewWithAllParameters_ReturnsValidInstance()
     {
         // Arrange
@@ -62,7 +64,7 @@ public class ProjectDataTests
         Assert.Equal(backendId, projectData.Backend_id);
     }
 
-    [Fact]
+    [AllureXunit]
     public void ProjectData_CreateNewWithMinimumParameters_ReturnsValidInstance()
     {
         // Arrange

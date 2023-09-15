@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Allure.Xunit.Attributes;
 
 namespace UniOneTests;
 
 public class TemplateDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void Body_ConstructedWithValues_HasCorrectProperties()
     {
         // Arrange
@@ -27,7 +28,7 @@ public class TemplateDataTests
         Assert.Equal(amp, body.Amp);
     }
     
-    [Fact]
+    [AllureXunit]
     public void Attachment_ConstructedWithValues_HasCorrectProperties()
     {
         // Arrange
@@ -50,7 +51,7 @@ public class TemplateDataTests
         Assert.Equal(content, attachment.Content);
     }
     
-    [Fact]
+    [AllureXunit]
     public void InputData_CreateNew_ReturnsCorrectObject()
     {
         // Arrange
@@ -68,7 +69,7 @@ public class TemplateDataTests
         Assert.Equal(offset, inputData.Offset);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EditorType_HtmlValue_CorrectValue()
     {
         // Arrange & Act
@@ -78,7 +79,7 @@ public class TemplateDataTests
         Assert.Equal("html", htmlValue);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EditorType_VisualValue_CorrectValue()
     {
         // Arrange & Act
@@ -88,7 +89,7 @@ public class TemplateDataTests
         Assert.Equal("visual", visualValue);
     }
     
-    [Fact]
+    [AllureXunit]
     public void TemplateEngine_NoneValue_CorrectValue()
     {
         // Arrange & Act
@@ -98,7 +99,7 @@ public class TemplateDataTests
         Assert.Equal("none", noneValue);
     }
 
-    [Fact]
+    [AllureXunit]
     public void TemplateEngine_SimpleValue_CorrectValue()
     {
         // Arrange & Act
@@ -108,7 +109,7 @@ public class TemplateDataTests
         Assert.Equal("simple", simpleValue);
     }
 
-    [Fact]
+    [AllureXunit]
     public void TemplateEngine_VelocityValue_CorrectValue()
     {
         // Arrange & Act
@@ -118,7 +119,7 @@ public class TemplateDataTests
         Assert.Equal("velocity", velocityValue);
     }
     
-     [Fact]
+    [AllureXunit]
         public void TemplateData_ConstructedWithValues_HasCorrectProperties()
         {
             // Arrange
@@ -240,7 +241,7 @@ public class TemplateDataTests
             Assert.Equal(inlineAttachments, templateData.InlineAttachments);
         }
 
-        [Fact]
+        [AllureXunit]
         public void TemplateData_TrackLinksRangeAttribute_IsValid()
         {
             // Arrange
@@ -256,7 +257,7 @@ public class TemplateDataTests
             Assert.Equal(1, rangeAttribute.Maximum);
         }
 
-        [Fact]
+        [AllureXunit]
         public void TemplateData_TrackReadRangeAttribute_IsValid()
         {
             // Arrange

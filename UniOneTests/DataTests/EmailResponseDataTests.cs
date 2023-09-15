@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class EmailResponseDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void EmailResponseData_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -15,7 +17,7 @@ public class EmailResponseDataTests
         Assert.Null(emailResponseData.FailedEmails);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EmailResponseData_SetPropertyValues()
     {
         // Arrange
@@ -36,7 +38,7 @@ public class EmailResponseDataTests
         Assert.Equal(failedEmails, emailResponseData.FailedEmails);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EmailResponseData_FailedEmails_SetToNull()
     {
         // Arrange

@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class SuppressionDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void SuppressionCause_ConstantsAreCorrect()
     {
         // Assert
@@ -12,7 +14,7 @@ public class SuppressionDataTests
         Assert.Equal("complained", SuppressionCause.Complained);
     }
     
-    [Fact]
+    [AllureXunit]
     public void SuppressionInputData_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -25,7 +27,7 @@ public class SuppressionDataTests
         Assert.False(suppressionInputData.AllProjects);
     }
 
-    [Fact]
+    [AllureXunit]
     public void SuppressionInputData_CreateNew_ReturnsValidInstance()
     {
         // Arrange
@@ -45,7 +47,7 @@ public class SuppressionDataTests
         Assert.True(suppressionInputData.AllProjects);
     }
     
-    [Fact]
+    [AllureXunit]
     public void SuppressionsData_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -60,7 +62,7 @@ public class SuppressionDataTests
         Assert.Equal(0, suppressionsData.Limit);
     }
     
-    [Fact]
+    [AllureXunit]
     public void SuppressionData_InitializeWithDefaultValues()
     {
         // Arrange & Act

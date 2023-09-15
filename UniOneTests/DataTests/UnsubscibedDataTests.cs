@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
+using Allure.Xunit.Attributes;
 
 namespace UniOneTests;
 
 public class UnsubscibedDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void UnsubscribedData_CreateNew_ReturnsValidInstance()
     {
         // Arrange
@@ -24,7 +25,7 @@ public class UnsubscibedDataTests
         Assert.Equal(message, unsubscribedData.Message);
     }
 
-    [Fact]
+    [AllureXunit]
     public void UnsubscribedData_PrivateConstructor_Test()
     {
         // Arrange

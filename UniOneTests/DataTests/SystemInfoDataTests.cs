@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class SystemInfoDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void SystemInfoData_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -17,7 +19,7 @@ public class SystemInfoDataTests
         Assert.Null(systemInfoData.Accounting);
     }
 
-    [Fact]
+    [AllureXunit]
     public void SystemInfoData_CreateNew_ReturnsValidInstance()
     {
         // Arrange

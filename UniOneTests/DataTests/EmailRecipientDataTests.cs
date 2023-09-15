@@ -1,8 +1,10 @@
+using Allure.Xunit.Attributes;
+
 namespace UniOneTests;
 
 public class EmailRecipientDataTests
 {
-    [Theory]
+    [AllureXunitTheory]
         [InlineData("John Doe", "john.doe@example.com", "12345", "campaign123", "hash123", null)]
         [InlineData("Jane Smith", "jane.smith@example.com", "67890", "campaign456", "hash456", "Key1=Value1,Key2=Value2")]
         public void CreateRecipient_ValidInput_ShouldReturnValidRecipient(string name, string emailAddress, string customerId, string campaignId, string customerHash, string substitutions)
@@ -24,7 +26,7 @@ public class EmailRecipientDataTests
             Assert.Equal(substitutionsDict, recipient.Substitutions);
         }
 
-        [Theory]
+        [AllureXunitTheory]
         [InlineData("invalid.email")]
         [InlineData("invalid.email@")]
         [InlineData("@example.com")]

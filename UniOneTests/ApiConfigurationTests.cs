@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class ApiConfigurationTests
 {
-    [Theory]
+    [AllureXunitTheory]
     [InlineData("https://example.com", "api", "v1", "apikey123",true,5)]
     [InlineData("https://api.example.com", "v2", "api", "apikey456",false,5)]
     public void CreateNew_ValidConfiguration_ShouldReturnValidApiConfiguration(string serverAddress, string apiUrl, string apiVersion, string apiKey,bool enableLogging, int timeout)
@@ -19,7 +21,7 @@ public class ApiConfigurationTests
         Assert.Equal(apiKey, apiConfig.ApiKey);
     }
 
-    [Theory]
+    [AllureXunitTheory]
     [InlineData("", "api", "v1", "apikey123",false,5)]
     [InlineData("https://example.com", "", "v1", "apikey456",false,5)]
     [InlineData("https://example.com", "api", "", "",false,5)]
@@ -29,7 +31,7 @@ public class ApiConfigurationTests
         Assert.Throws<EmptyApiConfigurationException>(() => ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, apiKey,enableLogging,timeout));
     }
 
-    [Theory]
+    [AllureXunitTheory]
     [InlineData("https://example.com", "api", "v1")]
     [InlineData("https://api.example.com", "v2", "api")]
     [InlineData("https://api.example.com", "api/v2", "")]

@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class EmailSubscribeDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void EmailSubscribeData_CreateNew_ReturnsValidInstance()
     {
         // Arrange
@@ -20,7 +22,7 @@ public class EmailSubscribeDataTests
         Assert.Equal(toEmail, emailSubscribeData.ToEmail);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EmailSubscribeData_PrivateConstructor_CreatesValidInstance()
     {
         // Arrange

@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class EventDumpDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void DeliveryStatus_ConstantsAreCorrect()
     {
         // Assert
@@ -24,7 +26,7 @@ public class EventDumpDataTests
         Assert.Equal("err_lost", DeliveryStatus.Err_lost);
     }
     
-    [Fact]
+    [AllureXunit]
     public void EventDumpStatus_ConstantsAreCorrect()
     {
         // Assert
@@ -38,7 +40,7 @@ public class EventDumpDataTests
         Assert.Equal("spam", EventDumpStatus.Spam);
     }
     
-    [Fact]
+    [AllureXunit]
     public void EventDumpRequest_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -54,7 +56,7 @@ public class EventDumpDataTests
         Assert.Null(eventDumpRequest.Format);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EventDumpRequest_SetPropertyValues()
     {
         // Arrange
@@ -80,7 +82,7 @@ public class EventDumpDataTests
         Assert.Equal("json", eventDumpRequest.Format);
     }
     
-    [Fact]
+    [AllureXunit]
     public void EventDumpFilter_InitializeWithDefaultValues()
     {
         // Arrange & Act
@@ -96,7 +98,7 @@ public class EventDumpDataTests
         Assert.Null(eventDumpFilter.CampaignId);
     }
 
-    [Fact]
+    [AllureXunit]
     public void EventDumpFilter_SetPropertyValues()
     {
         // Arrange

@@ -1,8 +1,10 @@
-﻿namespace UniOneTests;
+﻿using Allure.Xunit.Attributes;
+
+namespace UniOneTests;
 
 public class TagDataTests
 {
-    [Fact]
+    [AllureXunit]
     public void CreateNew_ShouldReturnValidTagData()
     {
         // Arrange
