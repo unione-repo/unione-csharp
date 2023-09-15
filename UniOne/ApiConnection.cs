@@ -29,7 +29,7 @@ public class ApiConnection: IApiConnection
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             string requestBody = requestBody = !request.ToString().Contains("{") ? JsonSerializer.Serialize(request) : request.ToString();
-
+            
             var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
             try

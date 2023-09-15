@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace UniOne.Models;
 
@@ -7,12 +7,15 @@ public class TagData
     /// <summary>
     /// Unique tag id.
     /// </summary>
-    [JsonProperty("tag_id")]
+    [JsonPropertyName("tag_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int TagId { get; set; }
+    
     /// <summary>
     /// Tag name.
     /// </summary>
-    [JsonProperty("tag")]
+    [JsonPropertyName("tag")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Tag { get; set; }
 
     public TagData(){}
@@ -31,8 +34,11 @@ public class TagData
 
 public class TagList
 {
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Status { get; set; }
-    [JsonProperty("tags")]
+    
+    [JsonPropertyName("tags")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IEnumerable<TagData> Tags { get; set; }
 }

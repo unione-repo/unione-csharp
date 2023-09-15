@@ -1,58 +1,132 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace UniOne.Models;
 
 public class TemplateData
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Id { get; set; }
-    [JsonProperty("name")]
+    
+    [JsonPropertyName("name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Name { get; set; }
+    
     /// <summary>
     /// Value from EditorType class
     /// </summary>
-    [JsonProperty("editor_type")]
+    [JsonPropertyName("editor_type")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string EditorType { get; set; }
+    
     /// <summary>
     /// Value from TemplateEngine class
     /// </summary>
-    [JsonProperty("template_engine")]
+    [JsonPropertyName("template_engine")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string TemplateEngine { get; set; }
-    [JsonProperty("global_substitutions")]
+    
+    [JsonPropertyName("global_substitutions")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<Dictionary<string,string>> GlobalSubstitutions { get; set; }
-    [JsonProperty("global_metadata")]
+    
+    [JsonPropertyName("global_metadata")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<Dictionary<string,string>> GlobalMetadata { get; set; }
-    [JsonProperty("body")]
+    
+    [JsonPropertyName("body")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public Body Body { get; set; }
-    [JsonProperty("subject")]
+    
+    [JsonPropertyName("subject")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Subject { get; set; }
-    [JsonProperty("from_email")]
+    
+    [JsonPropertyName("from_email")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string FromEmail { get; set; }
-    [JsonProperty("from_name")]
+    
+    [JsonPropertyName("from_name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string FromName { get; set; }
-    [JsonProperty("reply_to")]
+    
+    [JsonPropertyName("reply_to")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string ReplyTo { get; set; }
+    
     [Range(0,1)]
-    [JsonProperty("track_links")]
+    [JsonPropertyName("track_links")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int TrackLinks { get; set; }
+    
     [Range(0,1)]
-    [JsonProperty("track_read")]
+    [JsonPropertyName("track_read")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int TrackRead { get; set; }
-    [JsonProperty("headers")]
+    
+    [JsonPropertyName("headers")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<Dictionary<string,string>> Headers { get; set; }
-    [JsonProperty("attachments")]
+    
+    [JsonPropertyName("attachments")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<Attachment> Attachments { get; set; }
-    [JsonProperty("inline_attachments")]
+    
+    [JsonPropertyName("inline_attachments")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<Attachment> InlineAttachments { get; set; }
-    [JsonProperty("created")]
+    
+    [JsonPropertyName("created")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Created { get; set; }
-    [JsonProperty("user_id")]
+    
+    [JsonPropertyName("user_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string UserId { get; set; }
-    [JsonProperty("project_id")]
+    
+    [JsonPropertyName("project_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string ProjectId { get; set; }
-    [JsonProperty("project_name")]
+    
+    [JsonPropertyName("project_name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string ProjectName { get; set; }
+    
+    public string ToJson()
+    {
+        var jsonObject = new Dictionary<string, object>
+        {
+            ["template"] = new Dictionary<string, object>()
+        };
+
+        PropertyInfo[] properties = typeof(EmailMessageData).GetProperties();
+        foreach (PropertyInfo property in properties)
+        {
+            string propertyName = GetJsonPropertyName(property);
+            
+            object propertyValue = property.GetValue(this);
+            
+            if (propertyValue != null)
+            {
+                ((Dictionary<string, object>)jsonObject["message"])[propertyName] = propertyValue;
+            }
+        }
+
+        return JsonSerializer.Serialize(jsonObject, new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            IgnoreNullValues = true
+        });
+    }
+    
+    private static string GetJsonPropertyName(PropertyInfo property)
+    {
+        var attribute = property.GetCustomAttribute<JsonPropertyNameAttribute>();
+        return attribute?.Name ?? property.Name;
+    }
 }
 
 
@@ -61,17 +135,22 @@ public class Body
     /// <summary>
     /// HTML part of the email body
     /// </summary>
-    [JsonProperty("html")]
+    [JsonPropertyName("html")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Html { get; set; }
+    
     /// <summary>
     /// Plaintext part of the email body.
     /// </summary>
-    [JsonProperty("plaintext")]
+    [JsonPropertyName("plaintext")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string PlainText { get; set; }
+    
     /// <summary>
     /// Optional AMP part of the email body.
     /// </summary>
-    [JsonProperty("amp")]
+    [JsonPropertyName("amp")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Amp { get; set; }
 }
 
@@ -80,17 +159,22 @@ public class Attachment
     /// <summary>
     /// Attachment type, see MIME. If unsure, use “application/octet-stream”.
     /// </summary>
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Type { get; set; }
+    
     /// <summary>
     /// Attachment name in the format: “name.extension”
     /// </summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Name { get; set; }
+    
     /// <summary>
     /// File contents in base64. Maximum file size 7MB (9786710 bytes in base64).
     /// </summary>
-    [JsonProperty("content")]
+    [JsonPropertyName("content")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Content { get; set; }
 }
 
@@ -128,6 +212,12 @@ public class InputData
 
 public class TemplateList
 {
+    [JsonPropertyName("status")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? status;
+    
+    [JsonPropertyName("templates")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+
     public IEnumerable<TemplateData> templates;
 }

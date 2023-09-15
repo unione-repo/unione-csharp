@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace UniOne.Models;
 
@@ -7,29 +7,40 @@ public class SystemInfoData
     /// <summary>
     /// “success” string
     /// </summary>
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Status { get; set; }
+    
     /// <summary>
     /// Unique user identifier.
     /// </summary>
-    [JsonProperty("user_id")]
+    [JsonPropertyName("user_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int UserId { get; set; }
+    
     /// <summary>
     /// Email of the user.
     /// </summary>
-    [JsonProperty("email")]
+    [JsonPropertyName("email")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string EmailAddress { get; set; }
+    
     /// <summary>
     /// Unqiue project identifier, ASCII string up to 36 characters long. Present only if the API key used for request is the project API key
     /// </summary>
-    [JsonProperty("project_id")]
+    [JsonPropertyName("project_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ProjectId { get; set; }
+    
     /// <summary>
     /// Project name, unique for user account. Present only if the API key used for request is the project API key.
     /// </summary>
-    [JsonProperty("project_name")]
+    [JsonPropertyName("project_name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ProjectName { get; set; }
-    [JsonProperty("accounting")]
+    
+    [JsonPropertyName("accounting")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public AccountingData? Accounting { get; set; }
 
     public SystemInfoData(){}

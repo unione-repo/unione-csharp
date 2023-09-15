@@ -28,7 +28,7 @@ public class Domain
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("domain/get-dns-records.json", DomainData.CreateNew(domain));
 
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<DomainData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
 
@@ -43,11 +43,14 @@ public class Domain
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:GetDNSRecords:result:" + result.GetStatus());
 
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
 
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:GetDNSRecords:END");
@@ -63,7 +66,7 @@ public class Domain
             _logger.Information("Domain:ValidateVerificationRecord:domain["+domain+"]");
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("domain/validate-verification-record.json", DomainData.CreateNew(domain));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<DomainData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
 
@@ -78,11 +81,14 @@ public class Domain
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:ValidateVerificationRecord:result:" + result.GetStatus());
 
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
 
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:ValidateVerificationRecord:END");
@@ -98,7 +104,7 @@ public class Domain
             _logger.Information("Domain:ValidateDkim:domain["+domain+"]");
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("domain/validate-dkim.json", DomainData.CreateNew(domain));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<DomainData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
 
@@ -113,11 +119,14 @@ public class Domain
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:ValidateDkim:result:" + result.GetStatus());
 
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
 
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:ValidateDkim:END");
@@ -134,7 +143,7 @@ public class Domain
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("domain/list.json", DomainData.CreateNew(domain,limit,offset));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<DomainList>.CreateNew(apiResponse.Item1, apiResponse.Item2);
 
@@ -149,11 +158,14 @@ public class Domain
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:List:result:" + result.GetStatus());
 
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
 
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:List:END");

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace UniOne.Models;
 
@@ -7,13 +7,17 @@ public class EmailValidationData
     /// <summary>
     /// “success” string
     /// </summary>
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Status { get; set; }
+    
     /// <summary>
     /// Email address to be checked.
     /// </summary>
-    [JsonProperty("email")]
+    [JsonPropertyName("email")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Email { get; set; }
+    
     /// <summary>
     /// Possible statuses:
     ///  “valid” - the address is valid,
@@ -21,8 +25,10 @@ public class EmailValidationData
     ///  “suspicious” - the address looks suspicious,
     ///  “unknown” - could not perform validation, the domain’s mail server has not responded within the time limit.
     /// </summary>
-    [JsonProperty("result")]
+    [JsonPropertyName("result")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Result { get; set; }
+    
     /// <summary>
     /// Possible statuses:
     ///   “no_mx_record” - no MX record found for the target domain,
@@ -36,42 +42,57 @@ public class EmailValidationData
     ///   “spamtrap” - this email is a spam trap, it is published openly but never used for actual emails. Sending messages to such addresses has a huge negative impact on reputation score,
     ///   “smtp_connection_failed” - the domain’s SMTP server does not respond; the address may contain a typo.
     /// </summary>
-    [JsonProperty("cause")]
+    [JsonPropertyName("cause")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Cause { get; set; }
+    
     /// <summary>
     /// Validity score, from 0 to 100 (0 – invalid, 100 – valid).
     /// </summary>
-    [JsonProperty("validity")]
+    [JsonPropertyName("validity")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int Validity { get; set; }
+    
     /// <summary>
     /// Local part (everything preceding the @ sign).
     /// </summary>
-    [JsonProperty("local_part")]
+    [JsonPropertyName("local_part")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string LocalPart { get; set; }
+    
     /// <summary>
     /// Domain name part.
     /// </summary>
-    [JsonProperty("domain")]
+    [JsonPropertyName("domain")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Domain { get; set; }
+    
     /// <summary>
     /// True if the address’ domain does have an MX record, false if does not.
     /// </summary>
-    [JsonProperty("mx_found")]
+    [JsonPropertyName("mx_found")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool MxFound { get; set; }
+    
     /// <summary>
     /// Preferred MX record for the domain.
     /// </summary>
-    [JsonProperty("mx_record")]
+    [JsonPropertyName("mx_record")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string MxRecord { get; set; }
+    
     /// <summary>
     /// For addresses which are likely to have typing errors (cause=possible_typo), a suggested variant with a fixed typo.
     /// </summary>
-    [JsonProperty("did_you_mean")]
+    [JsonPropertyName("did_you_mean")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string DidYouMean { get; set; }
+    
     /// <summary>
     /// Email check date and time, YYYY-MM-DD hh:mm:ss UTC.
     /// </summary>
-    [JsonProperty("processed_at")]
+    [JsonPropertyName("processed_at")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime ProcessedAt { get; set; }
 
     public EmailValidationData(){}

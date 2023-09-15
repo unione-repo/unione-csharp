@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace UniOne.Models;
 
@@ -7,22 +7,29 @@ public class UnsubscribedData
     /// <summary>
     /// Email address
     /// </summary>
-    [JsonProperty("address")]
+    [JsonPropertyName("address")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string EmailAddress { get; set; }
+    
     /// <summary>
     /// Date and time when a recipient unsubscribed, in UTC timezone and “YYYY-MM-DD hh:mm:ss” format.
     /// </summary>
-    [JsonProperty("unsubscribed_on")]
+    [JsonPropertyName("unsubscribed_on")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime UnsubscribedOn { get; set; }
+    
     /// <summary>
     /// true if unsubscribed, false if not.
     /// </summary>
-    [JsonProperty("is_unsubscribed")]
+    [JsonPropertyName("is_unsubscribed")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool IsUnsubscribed { get; set; }
+    
     /// <summary>
     /// Human-readable error message in English.
     /// </summary>
-    [JsonProperty("message")]
+    [JsonPropertyName("message")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Message { get; set; }
     
     private UnsubscribedData(){}
@@ -43,8 +50,11 @@ public class UnsubscribedData
 
 public class UnsubscribedList
 {
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string status { get; set; }
-    [JsonProperty("unsubscribed")]
+    
+    [JsonPropertyName("unsubscribed")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IEnumerable<UnsubscribedData> Unsubscribed { get; set; }
 }

@@ -26,7 +26,7 @@ public class Suppression
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/set.json", SuppressionInputData.CreateNew(email,cause,created));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<SuppressionData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -41,12 +41,15 @@ public class Suppression
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Set:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Set:END");
@@ -63,7 +66,7 @@ public class Suppression
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/get.json", SuppressionInputData.CreateNew(email,null,DateTime.MinValue,all_projects));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<SuppressionData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -78,12 +81,15 @@ public class Suppression
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Get:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Get:END");
@@ -100,7 +106,7 @@ public class Suppression
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/get.json", new SuppressionListFilters(cause,source,start_time,cursor,limit));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<SuppressionData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -115,12 +121,15 @@ public class Suppression
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:List:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:List:END");
@@ -137,7 +146,7 @@ public class Suppression
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/delete.json", SuppressionInputData.CreateNew(email));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<SuppressionData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -152,12 +161,15 @@ public class Suppression
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Delete:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Delete:END");

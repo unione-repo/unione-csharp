@@ -26,7 +26,7 @@ public class EventDump
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/create.json", request);
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<string>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -41,12 +41,15 @@ public class EventDump
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Create:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Create:END");
@@ -63,7 +66,7 @@ public class EventDump
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/get.json", "{ \"dump_id:\" \""+ dumpId + " \"  }");
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<EventDumpRequest>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -78,12 +81,15 @@ public class EventDump
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Get:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Get:END");
@@ -100,7 +106,7 @@ public class EventDump
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/list.json", InputData.CreateNew(null,limit,offset));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<EventDumpList>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -115,12 +121,15 @@ public class EventDump
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:List:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:List:END");
@@ -137,7 +146,7 @@ public class EventDump
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/delete.json", "{ \"dump_id:\" \""+ dumpId + " \"  }");
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<string>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -152,12 +161,15 @@ public class EventDump
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Detele:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Detele:END");

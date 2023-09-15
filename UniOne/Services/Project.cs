@@ -25,8 +25,8 @@ public class Project
             _logger.Information("Project:Create:name[" + name +"]:country["+country+"]:sendEnabled["+send_enabled+"]:customUnsubscribeUrlEnabled["+custom_unsubscribe_url_enabled+"]:backendId["+backendId+"]");
 
         string response = "";
-        var apiResponse = await _apiConnection.SendMessageAsync("project/create.json", ProjectData.CreateNew(name,country,send_enabled,custom_unsubscribe_url_enabled,backendId));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        var apiResponse = await _apiConnection.SendMessageAsync("project/create.json", ProjectData.CreateNew(name,country,send_enabled,custom_unsubscribe_url_enabled,backendId).ToJson());
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<ProjectInputData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -41,12 +41,15 @@ public class Project
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Create:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Create:END");
@@ -63,7 +66,7 @@ public class Project
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("project/update.json", ProjectData.CreateNew(id,name,country,send_enabled,custom_unsubscribe_url_enabled,backendId));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<ProjectInputData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -78,12 +81,15 @@ public class Project
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Update:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Update:END");
@@ -110,7 +116,7 @@ public class Project
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("domain/list.json", body);
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<ProjectDataList>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -125,12 +131,15 @@ public class Project
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:List:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:List:END");
@@ -147,7 +156,7 @@ public class Project
 
         string response = "";
         var apiResponse = await _apiConnection.SendMessageAsync("project/delete.json", ProjectInputData.CreateNew(id,project_api_key));
-        if (!apiResponse.Item1.ToLower().Contains("error"))
+        if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<string>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             if(_apiConnection.IsLoggingEnabled())
@@ -162,12 +171,15 @@ public class Project
         }
         else
         {
-            var result = OperationResult<ErrorData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
+            var result = OperationResult<ErrorDetailsData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
             
             if(_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Delete:result:" + result.GetStatus());
            
-            _error = _mapper.Map<ErrorData>(result.GetResponse());
+            this._error = new ErrorData();
+            this._error.Status = apiResponse.Item1;
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Delete:END");

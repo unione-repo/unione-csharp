@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace UniOne.Models;
 
@@ -7,44 +7,61 @@ public class WebhookData
     /// <summary>
     /// Webhook unique identifier.
     /// </summary>
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Id { get; set; }
-    [JsonProperty("url")]
+    
+    [JsonPropertyName("url")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string Url { get; set; }
+    
     /// <summary>
     /// Webhook status, “active” by default. “disabled” means that webhook has been disabled by the user, “stopped” means that webhook has been stopped by the system after 24h of failed calls (with minimum of 10 distinct events). Value from WebhookStatus class
     /// </summary>
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Status { get; set; }
+    
     /// <summary>
     /// Notification format. “json_post”(default) or “json_post_gzip”. Value from EventFormat class
     /// </summary>
-    [JsonProperty("event_format")]
+    [JsonPropertyName("event_format")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? EventFormat { get; set; }
+    
     /// <summary>
     /// Shall detailed delivery info be returned(1) or not(0). When it’s 1, the information about SMTP response and internal delivery status is returned for “hard_bounced” and “soft_bounced” email statuses; the user agent is returned for “opened” and “clicked” statuses and URL for “clicked” status.
     /// </summary>
-    [JsonProperty("delivery_info")]
+    [JsonPropertyName("delivery_info")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? DeliveryInfo { get; set; }
+    
     /// <summary>
     /// 0=several event notifications can be reported in single webhook call, 1=only single event can be reported in one call (not recommended).
     /// </summary>
-    [JsonProperty("single_event")]
+    [JsonPropertyName("single_event")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? SingleEvent { get; set; }
+    
     /// <summary>
     /// Maximum quantity of permitted parallel queries to your server. The more your server can handle - the better.
     /// </summary>
-    [JsonProperty("max_parallel")]
+    [JsonPropertyName("max_parallel")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? MaxParallel { get; set; }
+    
     /// <summary>
     /// Object containing events to notify of.
     /// </summary>
-    [JsonProperty("events")]
+    [JsonPropertyName("events")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Events { get; set; }
+    
     /// <summary>
     /// Webhook properties last update date and time in UTC timezone in “YYYY-MM-DD hh:mm:ss” format.
     /// </summary>
-    [JsonProperty("updated_at")]
+    [JsonPropertyName("updated_at")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? UpdatedAt { get; set; }
 }
 
@@ -66,12 +83,15 @@ public class Event
     /// <summary>
     /// If present then spam block events will be reported. Should contain single array element with “*” string.
     /// </summary>
-    [JsonProperty("spam_block")]
+    [JsonPropertyName("spam_block")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<string> Spam_block;
+    
     /// <summary>
     /// If present then email status change events will be reported. Contains names of statuses to notify of. List of values from EmailStatus class
     /// </summary>
-    [JsonProperty("email_status")]
+    [JsonPropertyName("email_status")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<EmailStatus> Email_status;
 }
 

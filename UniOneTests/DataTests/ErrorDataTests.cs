@@ -3,38 +3,34 @@
 public class ErrorDataTests
 {
     [Fact]
-    public void ErrorData_CreateNew_Returns_New_Instance()
+    public void ErrorData_ShouldHaveCorrectProperties()
     {
         // Arrange
-        string status = "error";
-        string message = "Test error message";
-        int errorCode = 500;
+        var errorDetailsData = ErrorDetailsData.CreateNew("errorStatus", "errorMessage", 500);
 
         // Act
-        var errorData = ErrorData.CreateNew(status, message, errorCode);
+        var errorData = new ErrorData
+        {
+            Status = "errorStatus",
+            Details = errorDetailsData
+        };
 
         // Assert
-        Assert.NotNull(errorData);
-        Assert.Equal(status, errorData.Status);
-        Assert.Equal(message, errorData.Message);
-        Assert.Equal(errorCode, errorData.Code);
+        Assert.Equal("errorStatus", errorData.Status);
+        Assert.Equal(errorDetailsData, errorData.Details);
     }
-
+    
     [Fact]
-    public void ErrorData_CreateNew_Handles_Null_Status()
+    public void CreateNew_ShouldReturnValidErrorDetailsData()
     {
         // Arrange
-        string status = null;
-        string message = "Test error message";
-        int errorCode = 500;
 
         // Act
-        var errorData = ErrorData.CreateNew(status, message, errorCode);
+        var errorDetailsData = ErrorDetailsData.CreateNew("errorStatus", "errorMessage", 500);
 
         // Assert
-        Assert.NotNull(errorData);
-        Assert.Null(errorData.Status);
-        Assert.Equal(message, errorData.Message);
-        Assert.Equal(errorCode, errorData.Code);
+        Assert.Equal("errorStatus", errorDetailsData.Status);
+        Assert.Equal("errorMessage", errorDetailsData.Message);
+        Assert.Equal(500, errorDetailsData.Code);
     }
 }
