@@ -1,4 +1,5 @@
 ﻿
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using UniOne.Models;
 using UniOne = UniOne.UniOne;
@@ -8,13 +9,55 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
     .Build();
 
+int startupErrors = 0;
+
 if (Environment.GetCommandLineArgs().Count() > 1)
 {
-    configuration["ServerAddress"] = Environment.GetCommandLineArgs()[1];
-    configuration["X-API-KEY"] = Environment.GetCommandLineArgs()[2];
-    configuration["WebhookUrl"] = Environment.GetCommandLineArgs()[3];
-    configuration["FromEmail"] = Environment.GetCommandLineArgs()[4];
+    configuration["UniOne:ServerAddress"] = Environment.GetCommandLineArgs()[1];
+    configuration["UniOne:X-API-KEY"] = Environment.GetCommandLineArgs()[2];
+    configuration["UniOne:WebhookUrl"] = Environment.GetCommandLineArgs()[3];
+    configuration["UniOne:FromEmail"] = Environment.GetCommandLineArgs()[4];
 }
+
+Regex apiUrlRegex = new Regex(@"^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$");
+Match apiUrlMatch = apiUrlRegex.Match(configuration["UniOne:ServerAddress"] ?? string.Empty);
+
+if (!apiUrlMatch.Success)
+{
+    Console.WriteLine("Api url is not valid!");
+    startupErrors++;
+}
+
+if (string.IsNullOrEmpty(configuration["UniOne:X-API-KEY"]) || configuration["UniOne:X-API-KEY"]!.Length < 40)
+{
+    Console.WriteLine("Api key is not valid!");
+    startupErrors++;
+}
+
+Regex webhookUrlRegex = new Regex(@"^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$");
+Match webhookUrlMatch = apiUrlRegex.Match(configuration["UniOne:WebhookUrl"] ?? string.Empty);
+
+if (!webhookUrlMatch.Success)
+{
+    Console.WriteLine("WebHook url is not valid!");
+    startupErrors++;
+}
+
+Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$");
+Match emailMatch = emailRegex.Match(configuration["UniOne:FromEmail"] ?? string.Empty);
+
+if (!emailMatch.Success)
+{
+    Console.WriteLine("Email address is not valid!");
+    startupErrors++;
+}
+
+if (startupErrors > 0)
+{
+    Console.WriteLine("Startup errors: " + startupErrors);
+    return;
+}
+
 
 var uniOne = new global::UniOne.UniOne(configuration);
 List<string> errors = new List<string>();
@@ -49,93 +92,115 @@ emailMessageData.Attachments = attachments;
 emailMessageData.InlineAttachments = inline_attachments;
 emailMessageData.Options = options;
 
+Console.WriteLine("Testing Email.Send...");
 var email = await uniOne.Email.Send(emailMessageData);
 if (email == null)
 {
-    errors.Add(("Template.List"));
+    errors.Add(("Email.Send"));
     var error = uniOne.Email.GetError();
+    Console.WriteLine("Email.Send - " + error.Details.CodeDescription);
 }
 
-
+Console.WriteLine("Testing Template.List...");
 var list = await uniOne.Template.List();
 if (list == null)
 {
     errors.Add(("Template.List"));
     var error = uniOne.Template.GetError();
+    Console.WriteLine("Template.List - " + error.Details.CodeDescription);
 }
 
+Console.WriteLine("Testing Generic.CustomRequest...");
 var customRequest = await uniOne.Generic.CustomRequest<TemplateList>("template/list.json", "{\"limit\": 50,\"offset\":0}");
 if (customRequest == null)
 {
     errors.Add("Generic.CustomRequest");
     var error = uniOne.Generic.GetError();
+    Console.WriteLine("Generic.CustomRequest - " + error.Details.CodeDescription);
 }
 
-
+Console.WriteLine("Testing System.SystemInfo...");
 var systemInfo = await uniOne.System.SystemInfo();
 if (systemInfo == null)
 {
     errors.Add(("System.SystemInfo"));
     var error = uniOne.System.GetError();
+    Console.WriteLine("System.SystemInfo - " + error.Details.CodeDescription);
 }
 
+Console.WriteLine("Testing Webhook.List...");
 var webhookList = await uniOne.Webhook.List();
 if (systemInfo == null)
 {
     errors.Add("Webhook.List");
     var error = uniOne.Webhook.GetError();
+    Console.WriteLine("Webhook.List - " + error.Details.CodeDescription);
 }
 
+Console.WriteLine("Testing Suppression.List...");
 var suppressionList = await uniOne.Suppression.List();
 if (suppressionList == null)
 {
     errors.Add("Suppression.List");
     var error = uniOne.Suppression.GetError();
+    Console.WriteLine("Suppression.List - " + error.Details.CodeDescription);
 }
 
+Console.WriteLine("Testing Domain.List...");
 var domainList = await uniOne.Domain.List("");
 if (domainList == null)
 {
     errors.Add("Domain.List");
     var error = uniOne.Domain.GetError();
+    Console.WriteLine("Domain.List - " + error.Details.CodeDescription);
 }
 
+Console.WriteLine("Testing EventDump.List...");
 var eventDumpList = await uniOne.EventDump.List();
 if (eventDumpList == null)
 {
     errors.Add("EventDump.List");
     var error = uniOne.EventDump.GetError();
+    Console.WriteLine("EventDump.List - " + error.Details.CodeDescription);
 }
 
+Console.WriteLine("Testing Tag.List...");
 var tagList = await uniOne.Tag.List();
 if (tagList == null)
 {
     errors.Add("Tag.List");
     var error = uniOne.Tag.GetError();
+    Console.WriteLine("Tag.List - " + error.Details.CodeDescription);
 }
 
+Console.WriteLine("Testing Project.List...");
 var projectList = await uniOne.Project.List();
 if (projectList == null)
 {
     errors.Add("Project.List");
     var error = uniOne.Project.GetError();
+    Console.WriteLine("Project.List - " + error.Details.CodeDescription);
 }
 
-var unsubscribedList = await uniOne.Obsolete.UnsubscribedList(configuration["FromEmail"]?.ToString() ?? string.Empty);
+Console.WriteLine("Testing Obsolete.UnsubscribedList...");
+var unsubscribedList = await uniOne.Obsolete.UnsubscribedList(configuration["UniOne:FromEmail"]?.ToString() ?? string.Empty);
 if (unsubscribedList == null)
 {
     errors.Add("Obsolete.UnsubscribedList");
     var error = uniOne.Obsolete.GetError();
+    Console.WriteLine("Obsolete.UnsubscribedList - " + error.Details.CodeDescription);
 }
 
-var webhook = await uniOne.Webhook.Get(configuration["WebhookUrl"]?.ToString() ?? string.Empty);
+Console.WriteLine("Testing Webhook.Get...");
+var webhook = await uniOne.Webhook.Get(configuration["UniOne:WebhookUrl"]?.ToString() ?? string.Empty);
 if (webhook == null)
 {
     errors.Add("Webhook.Get");
     var error = uniOne.Webhook.GetError();
+    Console.WriteLine("Webhook.Get - " + error.Details.CodeDescription);
 }
 
-Console.WriteLine("Error count:" + errors.Count + "/11" );
+Console.WriteLine("Error count:" + errors.Count + "/12" );
 if (errors.Count > 0)
 {
     Console.WriteLine("Error List:");

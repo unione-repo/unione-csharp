@@ -193,7 +193,7 @@ public class SuppressionListFilters
     /// Limits the number of records to be returned at one time, default is 50.
     /// </summary>
     [JsonPropertyName("limit")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int Limit { get; set; }
 
 
