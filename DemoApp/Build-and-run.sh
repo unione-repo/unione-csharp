@@ -25,3 +25,10 @@ webhook="$3"
 email="$4"
 
 dotnet run --project "$app_dir/DemoApp.csproj" "$host_name" "$api_key" "$webhook" "$email"
+
+app_exit_code=$?
+
+
+echo $app_exit_code
+
+exit $app_exit_code;

@@ -105,7 +105,7 @@ public class Suppression
             _logger.Information("Suppression:List");
 
         string response = "";
-        var apiResponse = await _apiConnection.SendMessageAsync("suppression/get.json", new SuppressionListFilters(cause,source,start_time,cursor,limit));
+        var apiResponse = await _apiConnection.SendMessageAsync("suppression/list.json", new SuppressionListFilters(cause,source,start_time,cursor,limit));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<SuppressionData>.CreateNew(apiResponse.Item1, apiResponse.Item2);

@@ -65,7 +65,7 @@ public class Webhook
             _logger.Information("Webhook:Get:url[" + url +"]");
 
         string response = "";
-        var apiResponse = await _apiConnection.SendMessageAsync("webhook/get.json", "{ \"url:\" \""+ url + " \"  }");
+        var apiResponse = await _apiConnection.SendMessageAsync("webhook/get.json", "{ \"url\" : \""+ url + "\"  }");
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
             var result = OperationResult<WebhookData>.CreateNew(apiResponse.Item1, apiResponse.Item2);
