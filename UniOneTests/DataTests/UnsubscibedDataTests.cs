@@ -35,7 +35,7 @@ public class UnsubscibedDataTests
 
         // Act
         var constructorInfo = typeof(UnsubscribedData).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(string), typeof(DateTime), typeof(bool), typeof(string) }, null);
-        UnsubscribedData unsubscribedData = (UnsubscribedData)constructorInfo.Invoke(new object[] { emailAddress, unsubscribedOn, isUnsubscribed, message });
+        UnsubscribedData? unsubscribedData = (UnsubscribedData)constructorInfo?.Invoke(new object[] { emailAddress, unsubscribedOn, isUnsubscribed, message })!;
 
         // Assert
         Assert.NotNull(unsubscribedData);

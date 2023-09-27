@@ -10,7 +10,7 @@ public class Project
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Project(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -23,8 +23,7 @@ public class Project
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Project:Create:name[" + name +"]:country["+country+"]:sendEnabled["+send_enabled+"]:customUnsubscribeUrlEnabled["+custom_unsubscribe_url_enabled+"]:backendId["+backendId+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("project/create.json", ProjectData.CreateNew(name,country,send_enabled,custom_unsubscribe_url_enabled,backendId).ToJson());
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -54,7 +53,7 @@ public class Project
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Create:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -63,8 +62,7 @@ public class Project
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Project:Update:id["+id+":name[" + name +"]:country["+country+"]:sendEnabled["+send_enabled+"]:customUnsubscribeUrlEnabled["+custom_unsubscribe_url_enabled+"]:backendId["+backendId+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("project/update.json", ProjectData.CreateNew(id,name,country,send_enabled,custom_unsubscribe_url_enabled,backendId));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -94,7 +92,7 @@ public class Project
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Update:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -104,7 +102,7 @@ public class Project
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Project:List:project_id["+project_id+"]");
 
-        object body = null;
+        object? body = null;
         if (string.IsNullOrEmpty(project_id) || string.IsNullOrEmpty(project_api_key))
         {
             body = "{}";
@@ -113,8 +111,7 @@ public class Project
         {
             body = ProjectInputData.CreateNew(project_id, project_api_key);
         }
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("domain/list.json", body);
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -144,7 +141,7 @@ public class Project
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:List:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -153,8 +150,7 @@ public class Project
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Project:Delete:id["+id+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("project/delete.json", ProjectInputData.CreateNew(id,project_api_key));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -184,9 +180,9 @@ public class Project
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Delete:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

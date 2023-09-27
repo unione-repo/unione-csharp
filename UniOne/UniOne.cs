@@ -12,12 +12,12 @@ public class UniOne : IUniOne
     IApiConfiguration _apiConfiguration;
     IApiConnection _apiConnection;
     
-    private string? _x_api_key = "";
-    private string? _server = "";
-    private int? _serverTimeout = 5;
+    private string _x_api_key = "";
+    private string _server = "";
+    private int _serverTimeout = 5;
     private bool _enableLogging = false;
-    private string? _apiUrl = "";
-    private string? _apiVersion = "";
+    private string _apiUrl = "";
+    private string _apiVersion = "";
     
     private readonly Domain _domain;
     private readonly Email _email;
@@ -34,10 +34,10 @@ public class UniOne : IUniOne
 
     public string X_Api_Key => _x_api_key;
     public string Server => _server;
-    public int? ServerTimeout => _serverTimeout;
+    public int ServerTimeout => _serverTimeout;
     public bool EnableLogging => _enableLogging;
-    public string ApiUrl => _apiUrl;
-    private string ApiVersion => _apiVersion;
+    public string? ApiUrl => _apiUrl;
+    private string? ApiVersion => _apiVersion;
 
     public Domain Domain => _domain;
     public Email Email => _email;
@@ -57,12 +57,12 @@ public class UniOne : IUniOne
     {
         var config = configuration.GetSection("UniOne");
         
-        _x_api_key = config["X-API-KEY"]?.ToString();
-        _server = config["ServerAddress"]?.ToString();
-        _serverTimeout = int.Parse(config["ServerTimeout"]?.ToString());
-        _enableLogging = bool.Parse(config["EnableLogging"]);
-        _apiUrl = config["ApiUrl"]?.ToString();
-        _apiVersion = config["ApiVersion"]?.ToString();
+        _x_api_key = config["X-API-KEY"]?.ToString() ?? string.Empty;
+        _server = config["ServerAddress"]?.ToString() ?? string.Empty;
+        _serverTimeout = int.Parse(config["ServerTimeout"]?.ToString() ?? string.Empty);
+        _enableLogging = bool.Parse(config["EnableLogging"]?.ToString( )?? "false");
+        _apiUrl = config["ApiUrl"]?.ToString() ?? string.Empty;
+        _apiVersion = config["ApiVersion"]?.ToString() ?? string.Empty;
         
         _logger = new LoggerConfiguration()
             .WriteTo.Console()
@@ -74,7 +74,7 @@ public class UniOne : IUniOne
         _mapper = mapperConfiguration.CreateMapper();
 
         _apiConfiguration =
-            ApiConfiguration.CreateNew(_server, _apiUrl, _apiVersion, _x_api_key, _enableLogging, _serverTimeout.HasValue? _serverTimeout.Value : 5);
+            ApiConfiguration.CreateNew(_server, _apiUrl, _apiVersion, _x_api_key, _enableLogging, _serverTimeout);
 
         _apiConnection = new ApiConnection(_apiConfiguration);
         

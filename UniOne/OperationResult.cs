@@ -5,25 +5,20 @@ namespace UniOne;
 
 public class OperationResult<T> : IOperationResult<T> where T: class
 {
-    private dynamic _reponseBody { get; set; }
-    private string _status { get; set; }
+    private dynamic? _reponseBody { get; set; }
+    private string? _status { get; set; }
 
-    public string GetStatus() => _status;
+    public string? GetStatus() => _status;
     
-    public string GetMessage()
+    public string? GetMessage()
     {
-        if (_reponseBody.message)
-        {
-            return _reponseBody.message;
-        }
-        
-        return string.Empty;
+        return _reponseBody?.message ? _reponseBody?.message : string.Empty;
     }
 
-    public dynamic GetResponse() => _reponseBody;
+    public dynamic? GetResponse() => _reponseBody;
 
     private OperationResult(){}
-    private OperationResult(string status, dynamic responseBody)
+    private OperationResult(string status, dynamic? responseBody)
     {
         _status = status;
         _reponseBody = responseBody;

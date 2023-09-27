@@ -16,9 +16,9 @@ public class ApiErrorData
         string result = "";
         try
         {
-            result = GetErrorCodes().FirstOrDefault(e => e.Code == code).Meaning;
+            result = GetErrorCodes().FirstOrDefault(e => e.Code == code)!.Meaning;
         }
-        catch (Exception ex)
+        catch
         {
             result = "No error code found ( " + code + " )";
         }

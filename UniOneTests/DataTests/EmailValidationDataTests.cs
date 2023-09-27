@@ -8,13 +8,13 @@ public class EmailValidationDataTests
         // Arrange
         string status = "valid";
         string email = "test@example.com";
-        string cause = null;
+        string? cause = null;
         int validity = 1;
         string local_part = "test";
         string domain = "example.com";
         bool mx_found = true;
         string mx_record = "mail.example.com";
-        string did_you_mean = null;
+        string? did_you_mean = null;
         DateTime processed_at = DateTime.UtcNow;
 
         // Act
@@ -40,13 +40,13 @@ public class EmailValidationDataTests
         // Arrange
         string status = "valid";
         string email = "test@example.com";
-        string cause = null;
+        string? cause = null;
         int validity = 1;
         string local_part = "test";
         string domain = "example.com";
         bool mx_found = true;
         string mx_record = "mail.example.com";
-        string did_you_mean = null;
+        string? did_you_mean = null;
         DateTime processed_at = DateTime.UtcNow;
 
         // Act

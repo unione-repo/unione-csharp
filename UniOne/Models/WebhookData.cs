@@ -13,7 +13,7 @@ public class WebhookData
     
     [JsonPropertyName("url")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Url { get; set; }
+    public string? Url { get; set; }
     
     /// <summary>
     /// Webhook status, “active” by default. “disabled” means that webhook has been disabled by the user, “stopped” means that webhook has been stopped by the system after 24h of failed calls (with minimum of 10 distinct events). Value from WebhookStatus class
@@ -85,14 +85,14 @@ public class Event
     /// </summary>
     [JsonPropertyName("spam_block")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string> Spam_block;
+    public List<string>? Spam_block;
     
     /// <summary>
     /// If present then email status change events will be reported. Contains names of statuses to notify of. List of values from EmailStatus class
     /// </summary>
     [JsonPropertyName("email_status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<EmailStatus> Email_status;
+    public List<EmailStatus>? Email_status;
 }
 
 

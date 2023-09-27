@@ -10,7 +10,7 @@ public class Generic
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Generic(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -25,8 +25,7 @@ public class Generic
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Generic:CustomRequest");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync(request, obj);
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -56,9 +55,9 @@ public class Generic
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Generic:CustomRequest:END");
 
-            return default(T);
+            return default(T)!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

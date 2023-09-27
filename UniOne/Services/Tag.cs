@@ -10,7 +10,7 @@ public class Tag
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Tag(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -24,8 +24,7 @@ public class Tag
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Tag:List");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("tag/list.json", "{ }");
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -55,7 +54,7 @@ public class Tag
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Tag:List:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -64,8 +63,7 @@ public class Tag
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Tag:Delete:tagId["+tagId+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("tag/delete.json", TagData.CreateNew(tagId,""));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -95,9 +93,9 @@ public class Tag
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Tag:Delete:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

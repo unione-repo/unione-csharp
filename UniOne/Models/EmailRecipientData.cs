@@ -15,7 +15,7 @@ public class EmailRecipientData
     /// </summary>
     [JsonPropertyName("email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EmailAddress { get; set; }
+    public string? EmailAddress { get; set; }
    
     /// <summary>
     /// Object to pass the substitutions(merge tags) for the recipient (e.g. recipient name, discount code, password change link, etc. See Template engines). The substitutions can be used in the following parameters:
@@ -31,27 +31,27 @@ public class EmailRecipientData
     /// </summary>
     [JsonPropertyName("substitutions")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<Object,Object> Substitutions { get; set; }
+    public Dictionary<Object,Object>? Substitutions { get; set; }
     
     /// <summary>
     /// Object for passing the metadata, such as “key”: “value”. Max key quantity: 10. Max key length: 64 symbols. Max value length: 1024 symbols. The metadata is returned by webhook and event-dump methods. If you pass strign up to 128 bit with “campaign_id” field name (name is configurable thru support), it will be considered as campaign identifier in statistics.
     /// </summary>
     [JsonPropertyName("metadata")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string,string> Metadata { get; set; }
+    public Dictionary<string,string>? Metadata { get; set; }
     
     public EmailRecipientData()
     {
     }
 
-    private EmailRecipientData(string name, string emailAddress, Dictionary<Object,Object> substitutions)
+    private EmailRecipientData(string name, string emailAddress, Dictionary<object, object>? substitutions)
     {
         Name = name;
         EmailAddress = emailAddress;
         Substitutions = substitutions;
     }
 
-    public static EmailRecipientData CreateRecipient(string name, string emailAddress, Dictionary<Object,Object> substitutions)
+    public static EmailRecipientData CreateRecipient(string name, string emailAddress, Dictionary<object, object>? substitutions)
     {
         Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 

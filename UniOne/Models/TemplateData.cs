@@ -9,53 +9,53 @@ public class TemplateData
 {
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Id { get; set; }
+    public string? Id { get; set; }
     
     [JsonPropertyName("name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     /// <summary>
     /// Value from EditorType class
     /// </summary>
     [JsonPropertyName("editor_type")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EditorType { get; set; }
+    public string? EditorType { get; set; }
     
     /// <summary>
     /// Value from TemplateEngine class
     /// </summary>
     [JsonPropertyName("template_engine")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string TemplateEngine { get; set; }
+    public string? TemplateEngine { get; set; }
     
     [JsonPropertyName("global_substitutions")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Dictionary<string,string>> GlobalSubstitutions { get; set; }
+    public List<Dictionary<string,string>>? GlobalSubstitutions { get; set; }
     
     [JsonPropertyName("global_metadata")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Dictionary<string,string>> GlobalMetadata { get; set; }
+    public List<Dictionary<string,string>>? GlobalMetadata { get; set; }
     
     [JsonPropertyName("body")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Body Body { get; set; }
+    public Body? Body { get; set; }
     
     [JsonPropertyName("subject")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Subject { get; set; }
+    public string? Subject { get; set; }
     
     [JsonPropertyName("from_email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string FromEmail { get; set; }
+    public string? FromEmail { get; set; }
     
     [JsonPropertyName("from_name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string FromName { get; set; }
+    public string? FromName { get; set; }
     
     [JsonPropertyName("reply_to")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ReplyTo { get; set; }
+    public string? ReplyTo { get; set; }
     
     [Range(0,1)]
     [JsonPropertyName("track_links")]
@@ -69,31 +69,31 @@ public class TemplateData
     
     [JsonPropertyName("headers")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Dictionary<string,string>> Headers { get; set; }
+    public List<Dictionary<string,string>>? Headers { get; set; }
     
     [JsonPropertyName("attachments")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Attachment> Attachments { get; set; }
+    public List<Attachment>? Attachments { get; set; }
     
     [JsonPropertyName("inline_attachments")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Attachment> InlineAttachments { get; set; }
+    public List<Attachment>? InlineAttachments { get; set; }
     
     [JsonPropertyName("created")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Created { get; set; }
+    public string? Created { get; set; }
     
     [JsonPropertyName("user_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
     
     [JsonPropertyName("project_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ProjectId { get; set; }
+    public string? ProjectId { get; set; }
     
     [JsonPropertyName("project_name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ProjectName { get; set; }
+    public string? ProjectName { get; set; }
     
     public string ToJson()
     {
@@ -107,18 +107,18 @@ public class TemplateData
         {
             string propertyName = GetJsonPropertyName(property);
             
-            object propertyValue = property.GetValue(this);
+            object? propertyValue = property.GetValue(this);
             
             if (propertyValue != null)
             {
-                ((Dictionary<string, object>)jsonObject["message"])[propertyName] = propertyValue;
+                ((Dictionary<string, object?>)jsonObject["message"])[propertyName] = propertyValue;
             }
         }
 
         return JsonSerializer.Serialize(jsonObject, new JsonSerializerOptions
         {
             WriteIndented = true,
-            IgnoreNullValues = true
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         });
     }
     
@@ -137,21 +137,21 @@ public class Body
     /// </summary>
     [JsonPropertyName("html")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Html { get; set; }
+    public string? Html { get; set; }
     
     /// <summary>
     /// Plaintext part of the email body.
     /// </summary>
     [JsonPropertyName("plaintext")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string PlainText { get; set; }
+    public string? PlainText { get; set; }
     
     /// <summary>
     /// Optional AMP part of the email body.
     /// </summary>
     [JsonPropertyName("amp")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Amp { get; set; }
+    public string? Amp { get; set; }
 }
 
 public class Attachment
@@ -161,21 +161,21 @@ public class Attachment
     /// </summary>
     [JsonPropertyName("type")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Type { get; set; }
+    public string? Type { get; set; }
     
     /// <summary>
     /// Attachment name in the format: “name.extension”
     /// </summary>
     [JsonPropertyName("name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     /// <summary>
     /// File contents in base64. Maximum file size 7MB (9786710 bytes in base64).
     /// </summary>
     [JsonPropertyName("content")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Content { get; set; }
+    public string? Content { get; set; }
 }
 
 public class EditorType
@@ -219,5 +219,5 @@ public class TemplateList
     [JsonPropertyName("templates")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 
-    public IEnumerable<TemplateData> templates;
+    public IEnumerable<TemplateData>? templates;
 }

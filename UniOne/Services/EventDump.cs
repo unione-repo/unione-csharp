@@ -10,7 +10,7 @@ public class EventDump
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public EventDump(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -23,8 +23,7 @@ public class EventDump
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("EventDump:Create");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/create.json", request);
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -54,7 +53,7 @@ public class EventDump
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Create:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -63,8 +62,7 @@ public class EventDump
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("EventDump:Get:dumpId[" + dumpId +"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/get.json", "{ \"dump_id:\" \""+ dumpId + " \"  }");
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -94,7 +92,7 @@ public class EventDump
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Get:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -103,8 +101,7 @@ public class EventDump
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("EventDump:List:limit["+limit+"]:offset["+offset+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/list.json", InputData.CreateNew(null,limit,offset));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -134,7 +131,7 @@ public class EventDump
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:List:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -143,8 +140,7 @@ public class EventDump
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("EventDump:Detele[" + dumpId +"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("event-dump/delete.json", "{ \"dump_id:\" \""+ dumpId + " \"  }");
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -174,9 +170,9 @@ public class EventDump
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EventDump:Detele:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

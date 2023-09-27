@@ -9,21 +9,21 @@ public class EmailResponseData
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     /// <summary>
     /// Job identifier, might be useful for investigating errors.
     /// </summary>
     [JsonPropertyName("job_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string JobId { get; set; }
+    public string? JobId { get; set; }
     
     /// <summary>
     /// Array of recipients emails successfully accepted for sending.
     /// </summary>
     [JsonPropertyName("emails")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string> Emails { get; set; }
+    public List<string>? Emails { get; set; }
     
     /// <summary>
     /// Object with emails rejected for sending as property names and their statuses as property values, e.g.: {“email1@gmail.com”: “temporary_unavailable”}. Possible statuses:
@@ -42,5 +42,5 @@ public class EmailResponseData
     /// </summary>
     [JsonPropertyName("failed_emails")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, string> FailedEmails { get; set; }  
+    public Dictionary<string, string>? FailedEmails { get; set; }  
 }

@@ -9,21 +9,21 @@ public class EmailSubscribeData
     /// </summary>
     [JsonPropertyName("from_email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string FromEmail { get; set; }
+    public string? FromEmail { get; set; }
     
     /// <summary>
     /// Sender’s name.
     /// </summary>
     [JsonPropertyName("from_name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string FromName { get; set; }
+    public string? FromName { get; set; }
     
     /// <summary>
     /// Recipient’s email.
     /// </summary>
     [JsonPropertyName("to_email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ToEmail { get; set; }
+    public string? ToEmail { get; set; }
     
     private EmailSubscribeData(){}
 

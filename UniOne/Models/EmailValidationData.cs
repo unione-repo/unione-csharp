@@ -9,14 +9,14 @@ public class EmailValidationData
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     /// <summary>
     /// Email address to be checked.
     /// </summary>
     [JsonPropertyName("email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Email { get; set; }
+    public string? Email { get; set; }
     
     /// <summary>
     /// Possible statuses:
@@ -27,7 +27,7 @@ public class EmailValidationData
     /// </summary>
     [JsonPropertyName("result")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Result { get; set; }
+    public string? Result { get; set; }
     
     /// <summary>
     /// Possible statuses:
@@ -44,7 +44,7 @@ public class EmailValidationData
     /// </summary>
     [JsonPropertyName("cause")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Cause { get; set; }
+    public string? Cause { get; set; }
     
     /// <summary>
     /// Validity score, from 0 to 100 (0 – invalid, 100 – valid).
@@ -58,14 +58,14 @@ public class EmailValidationData
     /// </summary>
     [JsonPropertyName("local_part")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string LocalPart { get; set; }
+    public string? LocalPart { get; set; }
     
     /// <summary>
     /// Domain name part.
     /// </summary>
     [JsonPropertyName("domain")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Domain { get; set; }
+    public string? Domain { get; set; }
     
     /// <summary>
     /// True if the address’ domain does have an MX record, false if does not.
@@ -79,26 +79,26 @@ public class EmailValidationData
     /// </summary>
     [JsonPropertyName("mx_record")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string MxRecord { get; set; }
+    public string? MxRecord { get; set; }
     
     /// <summary>
     /// For addresses which are likely to have typing errors (cause=possible_typo), a suggested variant with a fixed typo.
     /// </summary>
     [JsonPropertyName("did_you_mean")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string DidYouMean { get; set; }
+    public string? DidYouMean { get; set; }
     
     /// <summary>
     /// Email check date and time, YYYY-MM-DD hh:mm:ss UTC.
     /// </summary>
     [JsonPropertyName("processed_at")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public DateTime ProcessedAt { get; set; }
+    public DateTime? ProcessedAt { get; set; }
 
     public EmailValidationData(){}
 
-    private EmailValidationData(string status, string email, string cause, int validity, string local_part,
-        string domain, bool mx_found, string mx_record, string did_you_mean, DateTime processed_at)
+    private EmailValidationData(string status, string email, string? cause, int validity, string local_part,
+        string domain, bool mx_found, string mx_record, string? did_you_mean, DateTime processed_at)
     {
         Status = status;
         Email = email;
@@ -112,7 +112,7 @@ public class EmailValidationData
         ProcessedAt = processed_at;
     }
 
-    public static EmailValidationData CreateNew(string status, string email, string cause, int validity, string local_part, string domain, bool mx_found, string mx_record, string did_you_mean, DateTime processed_at)
+    public static EmailValidationData CreateNew(string status, string email, string? cause, int validity, string local_part, string domain, bool mx_found, string mx_record, string? did_you_mean, DateTime processed_at)
     {
         return new  EmailValidationData(status, email, cause, validity, local_part, domain, mx_found, mx_record, did_you_mean, processed_at);
     }

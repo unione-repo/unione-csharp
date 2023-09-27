@@ -10,7 +10,7 @@ public class Email
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Email(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -23,8 +23,7 @@ public class Email
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Email:Send");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("email/send.json", message.ToJson());
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -54,7 +53,7 @@ public class Email
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Email:Send:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -63,8 +62,7 @@ public class Email
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Email:Subscribe:fromEmail["+fromEmail+"]:fromName[" + fromName +"]:toEmail["+toEmail+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("email/send.json", EmailSubscribeData.CreateNew(fromEmail,fromName,toEmail));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -94,9 +92,9 @@ public class Email
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Email:Subscribe:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

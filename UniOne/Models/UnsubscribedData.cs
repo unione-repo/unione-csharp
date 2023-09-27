@@ -9,7 +9,7 @@ public class UnsubscribedData
     /// </summary>
     [JsonPropertyName("address")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EmailAddress { get; set; }
+    public string? EmailAddress { get; set; }
     
     /// <summary>
     /// Date and time when a recipient unsubscribed, in UTC timezone and “YYYY-MM-DD hh:mm:ss” format.
@@ -30,7 +30,7 @@ public class UnsubscribedData
     /// </summary>
     [JsonPropertyName("message")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Message { get; set; }
+    public string? Message { get; set; }
     
     private UnsubscribedData(){}
 
@@ -52,9 +52,9 @@ public class UnsubscribedList
 {
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string status { get; set; }
+    public string? status { get; set; }
     
     [JsonPropertyName("unsubscribed")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public IEnumerable<UnsubscribedData> Unsubscribed { get; set; }
+    public IEnumerable<UnsubscribedData>? Unsubscribed { get; set; }
 }

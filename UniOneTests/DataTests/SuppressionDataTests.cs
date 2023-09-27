@@ -30,7 +30,7 @@ public class SuppressionDataTests
     {
         // Arrange
         string email = "test@example.com";
-        string cause = SuppressionCause.Unsubscribed;
+        string? cause = SuppressionCause.Unsubscribed;
         DateTime created = DateTime.UtcNow;
         bool allProjects = true;
 

@@ -9,7 +9,7 @@ public class SystemInfoData
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     /// <summary>
     /// Unique user identifier.
@@ -23,7 +23,7 @@ public class SystemInfoData
     /// </summary>
     [JsonPropertyName("email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EmailAddress { get; set; }
+    public string? EmailAddress { get; set; }
     
     /// <summary>
     /// Unqiue project identifier, ASCII string up to 36 characters long. Present only if the API key used for request is the project API key

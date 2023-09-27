@@ -3,7 +3,7 @@
 public interface IApiConfiguration
 {
     string GetApiUrl();
-    string GetApiKey();
+    string? GetApiKey();
     bool IsLoggingEnabled();
     int GetTimeout();
 

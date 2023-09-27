@@ -8,28 +8,28 @@ public class ProjectData
 {
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Id { get; set; }
+    public string? Id { get; set; }
     
     /// <summary>
     /// Project name, unique for user account.
     /// </summary>
     [JsonPropertyName("name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     /// <summary>
     /// API key of the project. You can use it instead of the user API key parameter in all methods except project/* methods.
     /// </summary>
     [JsonPropertyName("api_key")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ApiKey { get; set; }
+    public string? ApiKey { get; set; }
     
     /// <summary>
     /// ISO-3166 alpha-2 country code. If set, UniOne treats project personal data according to country laws, e.g. GDPR for european countries.
     /// </summary>
     [JsonPropertyName("country")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Country { get; set; }
+    public string? Country { get; set; }
     
     [JsonPropertyName("req_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -101,7 +101,7 @@ public class ProjectData
         {
             string propertyName = GetJsonPropertyName(property);
             
-            object propertyValue = property.GetValue(this);
+            object? propertyValue = property.GetValue(this);
             
             if (propertyValue != null)
             {
@@ -112,7 +112,7 @@ public class ProjectData
         return JsonSerializer.Serialize(jsonObject, new JsonSerializerOptions
         {
             WriteIndented = true,
-            IgnoreNullValues = true
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         });
     }
     
@@ -125,24 +125,24 @@ public class ProjectData
 
 public class ProjectInputData
 {
-    private string _status { get; set; }
-    private string _project_id { get; set; }
-    private string _project_api_key { get; set; }
+    private string? _status { get; set; }
+    private string? _project_id { get; set; }
+    private string? _project_api_key { get; set; }
 
     /// <summary>
     /// Unqiue project identifier, ASCII string up to 36 characters long.
     /// </summary>
-    public string Project_Id => _project_id;
+    public string? Project_Id => _project_id;
     
     /// <summary>
     /// API key of the project. You can use it instead of the user API key parameter in all methods except project/* methods.
     /// </summary>
-    public string Project_api_key => _project_api_key;
+    public string? Project_api_key => _project_api_key;
     
     /// <summary>
     /// “success” string
     /// </summary>
-    public string Status => _status;
+    public string? Status => _status;
     
     private ProjectInputData(){}
 
@@ -163,9 +163,9 @@ public class ProjectDataList
 {
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string status { get; set; }
+    public string? status { get; set; }
     
     [JsonPropertyName("projects")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public IEnumerable<ProjectData> Projects { get; set; }
+    public IEnumerable<ProjectData>? Projects { get; set; }
 }

@@ -12,14 +12,14 @@ public class Options
     /// </summary>
     [JsonPropertyName("send_at")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string SendAt { get; set; }
+    public string? SendAt { get; set; }
     
     /// <summary>
     /// Custom unsubscribe link. Read more here - https://docs.unione.io/en/unsubscribe-link
     /// </summary>
     [JsonPropertyName("unsubscribe_url")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string UnsubscribeUrl { get; set; }
+    public string? UnsubscribeUrl { get; set; }
     
     /// <summary>
     /// Backend-domain identifier to send message with. If custom_backend_id is not set, default one for your account/project will be used. You can pay for one or more dedicated IPs and use this option.
@@ -33,7 +33,7 @@ public class Options
     /// </summary>
     [JsonPropertyName("smtp_pool_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string SmtpPoolId { get; set; }
+    public string? SmtpPoolId { get; set; }
 }
 
 public class EmailMessageData
@@ -43,21 +43,21 @@ public class EmailMessageData
     /// </summary>
     [JsonPropertyName("recipients")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<EmailRecipientData> Recipients { get; set; }
+    public List<EmailRecipientData>? Recipients { get; set; }
     
     /// <summary>
     /// Optional identifier of the template that had been created by template/set method. If template_id is passed then fields from the template are used instead of missed email/send parameters. E.g. if “body” parameter in email/send is omitted, “body” from template will be used. If “subject” in email/send is omitted, “subject” from template will be used.
     /// </summary>
     [JsonPropertyName("template_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string TemplateId { get; set; }
+    public string? TemplateId { get; set; }
     
     /// <summary>
     /// An array of strings. The maximum string length is 50 characters. You can include up to 4 strings which must be unique. No more than 10 000 tags are allowed per project; if you try to add more, email/send will return an error. You may use tags to categorize emails by your own criteria, and they will be passed along by event-dump methods.
     /// </summary>
     [JsonPropertyName("tags")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string> Tags { get; set; }
+    public List<string>? Tags { get; set; }
     
     /// <summary>
     /// Whether to skip or not appending default unsubscribe footer. 1=skip, 0=append, default is 0. You should ask support to approve
@@ -71,63 +71,63 @@ public class EmailMessageData
     /// </summary>
     [JsonPropertyName("global_language")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string GlobalLanguage { get; set; }
+    public string? GlobalLanguage { get; set; }
     
     /// <summary>
     /// The template engine for handling the substitutions(merge tags), “simple”, “velocity” or “none”. Default value is “simple”. “none” is only available for emails with “track_links” and “track_read” equal to 0 and the unsubscription link turned off.
     /// </summary>
     [JsonPropertyName("template_engine")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string TemplateEngine { get; set; }
+    public string? TemplateEngine { get; set; }
     
     /// <summary>
     /// Object for passing the substitutions(merge tags) common for all recipients - e.g., company name. If the substitution names are duplicated in object “substitutions”, the values of the variables will be taken from the object “substitutions”. The substitutions can be used in the following parameters:
     /// </summary>
     [JsonPropertyName("global_substitutions")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, string> GlobalSubstitutions { get; set; }
+    public Dictionary<string, string>? GlobalSubstitutions { get; set; }
     
     /// <summary>
     /// Object for passing the metadata common for all the recipients, such as “key”: “value”. Max key quantity: 10. Max key length: 64 symbols. Max value length: 1024 symbols. The metadata is returned by webhook.
     /// </summary>
     [JsonPropertyName("global_metadata")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, string> GlobalMetadata { get; set; }
+    public Dictionary<string, string>? GlobalMetadata { get; set; }
     
     /// <summary>
     /// Contains HTML/plaintext/AMP parts of the email. Either html or plaintext part is required.
     /// </summary>
     [JsonPropertyName("body")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Body Body { get; set; }
+    public Body? Body { get; set; }
     
     /// <summary>
     /// Email subject.
     /// </summary>
     [JsonPropertyName("subject")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Subject { get; set; }
+    public string? Subject { get; set; }
     
     /// <summary>
     /// Sender’s email. Required only if template_id parameter is empty.
     /// </summary>
     [JsonPropertyName("from_email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string FromEmail { get; set; }
+    public string? FromEmail { get; set; }
     
     /// <summary>
     /// Sender’s name.
     /// </summary>
     [JsonPropertyName("from_name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string FromName { get; set; }
+    public string? FromName { get; set; }
     
     /// <summary>
     /// Optional Reply-To email (in case it’s different to sender’s email)
     /// </summary>
     [JsonPropertyName("reply_to")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ReplyTo { get; set; }
+    public string? ReplyTo { get; set; }
     
     /// <summary>
     /// 1=click tracking is on (default), 0=click tracking is off
@@ -178,28 +178,28 @@ public class EmailMessageData
     /// </summary>
     [JsonPropertyName("headers")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, string> Headers { get; set; }
+    public Dictionary<string, string>? Headers { get; set; }
     
     /// <summary>
     /// Optional array of attachments
     /// </summary>
     [JsonPropertyName("attachments")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Attachment> Attachments { get; set; }
+    public List<Attachment>? Attachments { get; set; }
     
     /// <summary>
     /// Optional array of inline attachments, e.g. for including images in email instead of loading them from external URL.
     /// </summary>
     [JsonPropertyName("inline_attachments")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Attachment> InlineAttachments { get; set; }
+    public List<Attachment>? InlineAttachments { get; set; }
     
     /// <summary>
     /// Additional message options.
     /// </summary>
     [JsonPropertyName("options")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Options Options { get; set; }
+    public Options? Options { get; set; }
     
     public string ToJson()
     {
@@ -213,7 +213,7 @@ public class EmailMessageData
         {
             string propertyName = GetJsonPropertyName(property);
             
-            object propertyValue = property.GetValue(this);
+            object? propertyValue = property.GetValue(this);
             
             if (propertyValue != null)
             {
@@ -224,7 +224,7 @@ public class EmailMessageData
         return JsonSerializer.Serialize(jsonObject, new JsonSerializerOptions
         {
             WriteIndented = true,
-            IgnoreNullValues = true
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         });
     }
     

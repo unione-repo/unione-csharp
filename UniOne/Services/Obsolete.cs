@@ -10,7 +10,7 @@ public class Obsolete
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Obsolete(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -23,8 +23,7 @@ public class Obsolete
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Obsolete:UnsubscribedSet:emailAddress[" + emailAddress +"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("unsubscribed/set.json", EmailAddressData.CreateNew(emailAddress));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -54,7 +53,7 @@ public class Obsolete
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Obsolete:UnsubscribedSet:END");
 
-            return null;
+            return null!;
         }
     }
 
@@ -63,8 +62,7 @@ public class Obsolete
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Obsolete:UnsubscribedCheck:emailAddress[" + emailAddress +"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("unsubscribed/check.json", EmailAddressData.CreateNew(emailAddress));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -94,7 +92,7 @@ public class Obsolete
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Obsolete:UnsubscribedCheck:END");
 
-            return null;
+            return null!;
         }
     }
 
@@ -103,8 +101,7 @@ public class Obsolete
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Obsolete:UnsubscribedList:emailAddress[" + emailAddress +"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("unsubscribed/list.json", EmailAddressData.CreateNew(emailAddress));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -134,9 +131,9 @@ public class Obsolete
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Obsolete:UnsubscribedList:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

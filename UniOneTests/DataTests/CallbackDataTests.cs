@@ -211,7 +211,6 @@ public class CallbackDataTests
             string domain = "example.com";
             int smtpBlocksCount = 2;
             string domainStatus = "Blocked";
-            string eventName = "EventOccurred";
             
             int userId = 1;
             string projectId = "project123";

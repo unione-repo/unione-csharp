@@ -2,7 +2,7 @@
 
 public class EmailAddressData
 {
-    public string Address { get; set; }
+    public string? Address { get; set; }
     
     public EmailAddressData(){}
 

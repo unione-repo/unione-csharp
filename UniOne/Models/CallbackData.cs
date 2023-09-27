@@ -9,28 +9,28 @@ public class DeliveryInfo
     /// </summary>
     [JsonPropertyName("delivery_status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string DeliveryStatus { get; set; }
+    public string? DeliveryStatus { get; set; }
     
     /// <summary>
     /// SMTP response.
     /// </summary>
     [JsonPropertyName("destination_response")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string DestinationResponse { get; set; }
+    public string? DestinationResponse { get; set; }
     
     /// <summary>
     /// User agent of recipient. Present only if detected for “clicked” and “opened” statuses.
     /// </summary>
     [JsonPropertyName("user_agent")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string UserAgent { get; set; }
+    public string? UserAgent { get; set; }
     
     /// <summary>
     /// Recipient’s IP address. Present only if detected for “clicked” and “opened” statuses.
     /// </summary>
     [JsonPropertyName("ip")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Ip { get; set; }
+    public string? Ip { get; set; }
 }
 
 public class EventData
@@ -40,84 +40,84 @@ public class EventData
     /// </summary>
     [JsonPropertyName("job_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string JobId { get; set; }
+    public string? JobId { get; set; }
     
     /// <summary>
     /// Metadata passed in email/send method in recipients.metadata or global_metadata properties. This property exists only if event_name=“transactional_email_status”.
     /// </summary>
     [JsonPropertyName("metadata")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, string> Metadata { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
     
     /// <summary>
     /// Recipient’s email. This property exists only if event_name=“transactional_email_status”.
     /// </summary>
     [JsonPropertyName("email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Email { get; set; }
+    public string? Email { get; set; }
     
     /// <summary>
     /// Email delivery status. This property exists only if event_name=“transactional_email_status”. String value from EventDumpStatus class
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     /// <summary>
     /// Event date & time in UTC time zone in “YYYY-MM-DD hh:mm:ss” format. This property exists only if event_name=“transactional_email_status”.
     /// </summary>
     [JsonPropertyName("event_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EventTime { get; set; }
+    public string? EventTime { get; set; }
    
     /// <summary>
     /// URL for “opened” and “clicked” statuses. This property exists only if event_name=“transactional_email_status”.
     /// </summary>
     [JsonPropertyName("url")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Url { get; set; }
+    public string? Url { get; set; }
    
     /// <summary>
     /// Object with detailed delivery info.Event date & time in UTC time zone in “YYYY-MM-DD hh:mm:ss” format. This property exists only if webhook has delivery_info proeprty set to 1 and event_name=“transactional_email_status”.
     /// </summary>
     [JsonPropertyName("delivery_info")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public DeliveryInfo DeliveryInfo { get; set; }
+    public DeliveryInfo? DeliveryInfo { get; set; }
     
     /// <summary>
     /// Spam block date & time in UTC time zone in “YYYY-MM-DD hh:mm:ss” format. This property exists only if event_name=“transactional_spam_block”.
     /// </summary>
     [JsonPropertyName("block_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string BlockTime { get; set; }
+    public string? BlockTime { get; set; }
     
     /// <summary>
     /// Spam block type, either single or multiple sending SMTP. For single sending SMTP block in common pool UniOne retries several other SMTPs. This property exists only if event_name=“transactional_spam_block”.
     /// </summary>
     [JsonPropertyName("block_type")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string BlockType { get; set; }
+    public string? BlockType { get; set; }
     
     /// <summary>
     /// Domain that blocked sending. This property exists only if event_name=“transactional_spam_block”.
     /// </summary>
     [JsonPropertyName("domain")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Domain { get; set; }
+    public string? Domain { get; set; }
     
     /// <summary>
     /// Number of sending SMTPs blocked. This property exists only if event_name=“transactional_spam_block”.
     /// </summary>
     [JsonPropertyName("SMTP_blocks_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int SMTPBlocksCount { get; set; }
+    public int? SMTPBlocksCount { get; set; }
     
     /// <summary>
     /// Whether it’s a block or unblock event. This property exists only if event_name=“transactional_spam_block”.
     /// </summary>
     [JsonPropertyName("domain_status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string DomainStatus { get; set; }
+    public string? DomainStatus { get; set; }
 }
 
 public class WebhookEvent
@@ -127,14 +127,14 @@ public class WebhookEvent
     /// </summary>
     [JsonPropertyName("event_name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EventName { get; set; }
+    public string? EventName { get; set; }
     
     /// <summary>
     /// Object with different event properties depending on “event_name”. Below you can see all the properties, “transactional_email_status”-related first and then “transactional_spam_block”-related.
     /// </summary>
     [JsonPropertyName("event_data")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public EventData EventData { get; set; }
+    public EventData? EventData { get; set; }
 }
 
 public class EventsByUser
@@ -144,28 +144,28 @@ public class EventsByUser
     /// </summary>
     [JsonPropertyName("user_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int UserId { get; set; }
+    public int? UserId { get; set; }
     
     /// <summary>
     /// Project identifier, present only if webhook was registered for the project using project API key.
     /// </summary>
     [JsonPropertyName("project_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ProjectId { get; set; }
+    public string? ProjectId { get; set; }
     
     /// <summary>
     /// Project name, present only if webhook was registered for the project using project API key.
     /// </summary>
     [JsonPropertyName("project_name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ProjectName { get; set; }
+    public string? ProjectName { get; set; }
     
     /// <summary>
     /// Array of events reported by webhook.
     /// </summary>
     [JsonPropertyName("events")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<WebhookEvent> Events { get; set; }
+    public List<WebhookEvent>? Events { get; set; }
 }
 
 public class CallbackData
@@ -175,12 +175,12 @@ public class CallbackData
     /// </summary>
     [JsonPropertyName("auth1")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Auth { get; set; }
+    public string? Auth { get; set; }
     
     /// <summary>
     /// Array with only one element, containing events of a user/project.
     /// </summary>
     [JsonPropertyName("events_by_user")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<EventsByUser> EventsByUser { get; set; }
+    public List<EventsByUser>? EventsByUser { get; set; }
 }

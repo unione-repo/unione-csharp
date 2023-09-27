@@ -10,7 +10,7 @@ public class Template
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Template(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -24,8 +24,7 @@ public class Template
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Template:Set");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("template/set.json", templateData.ToJson());
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -55,7 +54,7 @@ public class Template
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:Set:END");
 
-            return null;
+            return null!;
         }
     }
 
@@ -64,8 +63,7 @@ public class Template
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Template:Get:id[" + id +"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("template/get.json", InputData.CreateNew(id,null,null));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -95,7 +93,7 @@ public class Template
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:Get:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -104,8 +102,7 @@ public class Template
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Template:List:limit["+limit+"]:offset["+offset+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("template/list.json", InputData.CreateNew(null,limit,offset));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -135,7 +132,7 @@ public class Template
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:List:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -144,8 +141,7 @@ public class Template
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Template:Detele:id[" + id +"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("template/delete.json", InputData.CreateNew(id,null,null));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -175,9 +171,9 @@ public class Template
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:Detele:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

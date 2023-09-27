@@ -10,7 +10,7 @@ public class System
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public System(IApiConnection apiConnection, IMapper mapper,ILogger logger)
     {
@@ -23,8 +23,7 @@ public class System
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("System:SystemInfo");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("system/info.json", "{ }");
 
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
@@ -55,9 +54,9 @@ public class System
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("System:SystemInfo:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

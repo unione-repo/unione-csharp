@@ -63,12 +63,10 @@ var uniOne = new global::UniOne.UniOne(configuration);
 List<string> errors = new List<string>();
 
 var emailMessageData = new EmailMessageData();
-var substitution = new Dictionary<Object, Object> { { "CustomerId", "12452" }, { "to_name","John Smith" } };
-var recipients = new List<EmailRecipientData> { new EmailRecipientData { EmailAddress = "user@example.com" , Metadata = new Dictionary<string, string>() { { "campaign_id", "c77f4f4e-3561-49f7-9f07-c35be01b4f43" }, { "customer_hash","b253ac7" } },Substitutions = substitution}};
+var recipients = new List<EmailRecipientData> { new EmailRecipientData { EmailAddress = "user@example.com"}};
 var headers = new Dictionary<string, string> { { "X-MyHeader", "some data" }, {"List-Unsubscribe","<mailto: unsubscribe@example.com?subject=unsubscribe>, <http://www.example.com/unsubscribe/{{CustomerId}}>"} };
 var attachments = new List<Attachment> { new Attachment { Name = "readme.txt", Type = "text/plain", Content = "SGVsbG8sIHdvcmxkIQ=="} };
 var inline_attachments = new List<Attachment> { new Attachment { Name = "IMAGECID1", Type = "image/gif", Content = "R0lGODdhAwADAIABAP+rAP///ywAAAAAAwADAAACBIQRBwUAOw=="} };
-var options = new Options(){SendAt = "2023-09-26 12:00:00", UnsubscribeUrl = "https://example.org/unsubscribe/{{CustomerId}}", CustomBackendId = 0, SmtpPoolId = ""};
 
 emailMessageData.Recipients = recipients;
 emailMessageData.Tags = new List<string> { "tag1" };
@@ -89,7 +87,6 @@ emailMessageData.BypassComplained = 0;
 emailMessageData.Headers = headers;
 emailMessageData.Attachments = attachments; 
 emailMessageData.InlineAttachments = inline_attachments;
-emailMessageData.Options = options;
 
 Console.WriteLine("Testing Email.Send...");
 var email = await uniOne.Email.Send(emailMessageData);
@@ -97,7 +94,7 @@ if (email == null)
 {
     errors.Add(("Email.Send"));
     var error = uniOne.Email.GetError();
-    Console.WriteLine("Email.Send - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Email.Send - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Template.List...");
@@ -106,7 +103,7 @@ if (list == null)
 {
     errors.Add(("Template.List"));
     var error = uniOne.Template.GetError();
-    Console.WriteLine("Template.List - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Template.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Generic.CustomRequest...");
@@ -115,7 +112,7 @@ if (customRequest == null)
 {
     errors.Add("Generic.CustomRequest");
     var error = uniOne.Generic.GetError();
-    Console.WriteLine("Generic.CustomRequest - APIErrorCode: " + error.Details.Code + "-" + error.Details.CodeDescription);
+    Console.WriteLine("Generic.CustomRequest - APIErrorCode: " + error!.Details!.Code + "-" + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing System.SystemInfo...");
@@ -124,7 +121,7 @@ if (systemInfo == null)
 {
     errors.Add(("System.SystemInfo"));
     var error = uniOne.System.GetError();
-    Console.WriteLine("System.SystemInfo - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("System.SystemInfo - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Webhook.List...");
@@ -133,7 +130,7 @@ if (systemInfo == null)
 {
     errors.Add("Webhook.List");
     var error = uniOne.Webhook.GetError();
-    Console.WriteLine("Webhook.List - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Webhook.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Suppression.List...");
@@ -142,7 +139,7 @@ if (suppressionList == null)
 {
     errors.Add("Suppression.List");
     var error = uniOne.Suppression.GetError();
-    Console.WriteLine("Suppression.List - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Suppression.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Domain.List...");
@@ -151,7 +148,7 @@ if (domainList == null)
 {
     errors.Add("Domain.List");
     var error = uniOne.Domain.GetError();
-    Console.WriteLine("Domain.List - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Domain.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing EventDump.List...");
@@ -160,7 +157,7 @@ if (eventDumpList == null)
 {
     errors.Add("EventDump.List");
     var error = uniOne.EventDump.GetError();
-    Console.WriteLine("EventDump.List - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("EventDump.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Tag.List...");
@@ -169,7 +166,7 @@ if (tagList == null)
 {
     errors.Add("Tag.List");
     var error = uniOne.Tag.GetError();
-    Console.WriteLine("Tag.List - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Tag.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Project.List...");
@@ -178,7 +175,7 @@ if (projectList == null)
 {
     errors.Add("Project.List");
     var error = uniOne.Project.GetError();
-    Console.WriteLine("Project.List - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Project.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Obsolete.UnsubscribedList...");
@@ -187,7 +184,7 @@ if (unsubscribedList == null)
 {
     errors.Add("Obsolete.UnsubscribedList");
     var error = uniOne.Obsolete.GetError();
-    Console.WriteLine("Obsolete.UnsubscribedList - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Obsolete.UnsubscribedList - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 Console.WriteLine("Testing Webhook.Get...");
@@ -196,7 +193,7 @@ if (webhook == null)
 {
     errors.Add("Webhook.Get");
     var error = uniOne.Webhook.GetError();
-    Console.WriteLine("Webhook.Get - APIErrorCode: " + error.Details.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Webhook.Get - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
 }
 
 

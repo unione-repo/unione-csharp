@@ -5,8 +5,8 @@ namespace UniOne.Models;
 
 public class ErrorData
 {
-    public string Status { get; set; }
-    public ErrorDetailsData Details { get; set; }
+    public string? Status { get; set; }
+    public ErrorDetailsData? Details { get; set; }
 }
 
 public class ErrorDetailsData
@@ -17,7 +17,7 @@ public class ErrorDetailsData
     [SourceMember("status")]
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     /// <summary>
     /// Human-readable error message in English.
@@ -25,7 +25,7 @@ public class ErrorDetailsData
     [SourceMember("message")]
     [JsonPropertyName("message")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Message { get; set; }
+    public string? Message { get; set; }
     
     /// <summary>
     /// API Error code - https://docs.unione.io/en/web-api-ref#api-errors
@@ -35,7 +35,7 @@ public class ErrorDetailsData
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int Code { get; set; }
     
-    public string CodeDescription { get; set; }
+    public string? CodeDescription { get; set; }
 
     public ErrorDetailsData(){}
 

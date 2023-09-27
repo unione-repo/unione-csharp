@@ -10,7 +10,7 @@ public class Suppression
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Suppression(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -18,13 +18,12 @@ public class Suppression
         _mapper = mapper;
         _logger = logger;
     }
-    public async Task<SuppressionData> Set(string email, string cause, DateTime created)
+    public async Task<SuppressionData> Set(string email, string? cause, DateTime created)
     {
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Suppression:Set:email["+email+"]:cause[" + cause+"]:created["+created.ToUniversalTime()+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/set.json", SuppressionInputData.CreateNew(email,cause,created));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -54,7 +53,7 @@ public class Suppression
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Set:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -63,8 +62,7 @@ public class Suppression
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Suppression:Get:email["+email+"]:all_projects[" + all_projects + "]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/get.json", SuppressionInputData.CreateNew(email,null,DateTime.MinValue,all_projects));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -94,17 +92,16 @@ public class Suppression
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Get:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public async Task<SuppressionData> List(string cause ="" , string source = "" , DateTime? start_time = null, string cursor = "", int limit = 50)
+    public async Task<SuppressionData> List(string? cause ="" , string source = "" , DateTime? start_time = null, string cursor = "", int limit = 50)
     {
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Suppression:List");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/list.json", new SuppressionListFilters(cause,source,start_time,cursor,limit));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -134,7 +131,7 @@ public class Suppression
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:List:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -143,8 +140,7 @@ public class Suppression
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Suppression:Delete:email["+email+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("suppression/delete.json", SuppressionInputData.CreateNew(email));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -174,9 +170,9 @@ public class Suppression
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Suppression:Delete:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

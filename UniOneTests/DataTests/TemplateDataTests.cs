@@ -247,7 +247,7 @@ public class TemplateDataTests
             var trackLinksProperty = typeof(TemplateData).GetProperty(nameof(TemplateData.TrackLinks));
 
             // Act
-            var attributes = trackLinksProperty.GetCustomAttributes(typeof(RangeAttribute), true);
+            var attributes = trackLinksProperty!.GetCustomAttributes(typeof(RangeAttribute), true);
             var rangeAttribute = Assert.Single(attributes) as RangeAttribute;
 
             // Assert
@@ -263,7 +263,7 @@ public class TemplateDataTests
             var trackReadProperty = typeof(TemplateData).GetProperty(nameof(TemplateData.TrackRead));
 
             // Act
-            var attributes = trackReadProperty.GetCustomAttributes(typeof(RangeAttribute), true);
+            var attributes = trackReadProperty!.GetCustomAttributes(typeof(RangeAttribute), true);
             var rangeAttribute = Assert.Single(attributes) as RangeAttribute;
 
             // Assert

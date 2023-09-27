@@ -9,28 +9,28 @@ public class SuppressionData
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     /// <summary>
     /// The email for which suppression details were requested.
     /// </summary>
     [JsonPropertyName("cause")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Email { get; set; }
+    public string? Email { get; set; }
     
     /// <summary>
     /// The parameter indicates from which position the selection is to be started. Must be empty or omitted for the first data chunk. In order to get subsequent chunks, you must set the “cursor” parameter in your request, using the value received in response to the previous request.
     /// </summary>
     [JsonPropertyName("cursor")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Cursor { get; set; }
+    public string? Cursor { get; set; }
     
     /// <summary>
     /// Array of suppression objects.
     /// </summary>
     [JsonPropertyName("suppressions")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<SuppressionsData> Suppressions { get; set; }
+    public List<SuppressionsData>? Suppressions { get; set; }
 
     public SuppressionData(){}
 }
@@ -42,14 +42,14 @@ public class SuppressionsData
     /// </summary>
     [JsonPropertyName("project_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string ProjectId { get; set; }
+    public string? ProjectId { get; set; }
     
     /// <summary>
     /// Value from SuppressionCause class
     /// </summary>
     [JsonPropertyName("cause")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Cause { get; set; }
+    public string? Cause { get; set; }
     
     /// <summary>
     /// Source of email being suppressed. One of:
@@ -59,7 +59,7 @@ public class SuppressionsData
     /// </summary>
     [JsonPropertyName("source")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Source { get; set; }
+    public string? Source { get; set; }
     
     /// <summary>
     /// Is it possible to delete this suppression by calling suppression/delete method.
@@ -90,12 +90,12 @@ public class SuppressionInputData
     /// <summary>
     /// Email to get suppression details for.
     /// </summary>
-    public string Email { get; set; }
+    public string? Email { get; set; }
     
     /// <summary>
     /// value from SuppressionCause class
     /// </summary>
-    public string Cause { get; set; }
+    public string? Cause { get; set; }
     
     /// <summary>
     /// When suppression was created, in UTC timezone in “YYYY-MM-DD hh:mm:ss” format.
@@ -109,7 +109,7 @@ public class SuppressionInputData
     
     public SuppressionInputData(){}
 
-    private SuppressionInputData(string email, string cause = null, DateTime created = new DateTime(), bool allProjects = false)
+    private SuppressionInputData(string email, string? cause = null, DateTime created = new DateTime(), bool allProjects = false)
     {
         Email = email;
         Cause = cause;
@@ -117,7 +117,7 @@ public class SuppressionInputData
         AllProjects = allProjects;
     }
 
-    public static SuppressionInputData CreateNew(string email, string cause = null, DateTime created = new DateTime(), bool allProjects = false)
+    public static SuppressionInputData CreateNew(string email, string? cause = null, DateTime created = new DateTime(), bool allProjects = false)
     {
         return new SuppressionInputData(email, cause, created, allProjects);
     }
@@ -128,7 +128,7 @@ public class SuppressionCause
     /// <summary>
     /// Email is unsubscribed;
     /// </summary>
-    public const string Unsubscribed = "unsubscribed";
+    public const string? Unsubscribed = "unsubscribed";
     
     /// <summary>
     /// the email address is unavailable. This means that over the next three days sending to this address will return an error. Email may be temporarily unavailable due to several reasons, e.g.:
@@ -162,7 +162,7 @@ public class SuppressionListFilters
     /// </summary>
     [JsonPropertyName("cause")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Cause { get; set; }
+    public string? Cause { get; set; }
     
     /// <summary>
     /// Source of email being suppressed. One of:
@@ -172,7 +172,7 @@ public class SuppressionListFilters
     /// </summary>
     [JsonPropertyName("source")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Source { get; set; }
+    public string? Source { get; set; }
     
     /// <summary>
     /// Date in the format YYYY-MM-DD hh:mm:ss to get suppression list from the “start_time” to the present day. Ignored if “cursor” is not empty.
@@ -187,7 +187,7 @@ public class SuppressionListFilters
     /// </summary>
     [JsonPropertyName("cursor")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Cursor { get; set; }
+    public string? Cursor { get; set; }
     
     /// <summary>
     /// Limits the number of records to be returned at one time, default is 50.
@@ -197,7 +197,7 @@ public class SuppressionListFilters
     public int Limit { get; set; }
 
 
-    public SuppressionListFilters(string cause, string source, DateTime? startTime, string cursor, int limit = 50)
+    public SuppressionListFilters(string? cause, string source, DateTime? startTime, string cursor, int limit = 50)
     {
         Cause = cause;
         Source = source;

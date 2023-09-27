@@ -4,17 +4,17 @@ namespace UniOne;
 
 public class ApiConfiguration : IApiConfiguration
 {
-    private string _serverAddress { get; set; }
-    private string _apiUrl { get; set; }
-    private string _apiVersion { get; set; }
-    private string _apiKey { get; set; }
+    private string? _serverAddress { get; set; }
+    private string? _apiUrl { get; set; }
+    private string? _apiVersion { get; set; }
+    private string? _apiKey { get; set; }
     private bool _enableLogging { get; set; }
     private int _timeout { get; set; }
 
-    public string ApiUrl => _apiUrl;
-    public string ApiVersion => _apiVersion;
-    public string ApiKey => _apiKey;
-    public string ServerAddress => _serverAddress;
+    public string? ApiUrl => _apiUrl;
+    public string? ApiVersion => _apiVersion;
+    public string? ApiKey => _apiKey;
+    public string? ServerAddress => _serverAddress;
     
     private ApiConfiguration(){}
 
@@ -54,7 +54,7 @@ public class ApiConfiguration : IApiConfiguration
     }
 
     public string GetApiUrl() => _serverAddress + _apiUrl + _apiVersion;
-    public string GetApiKey() => _apiKey;
+    public string? GetApiKey() => _apiKey;
     public bool IsLoggingEnabled() => _enableLogging;
     public int GetTimeout() => _timeout;
 }

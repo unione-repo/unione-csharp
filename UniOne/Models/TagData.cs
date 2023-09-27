@@ -16,7 +16,7 @@ public class TagData
     /// </summary>
     [JsonPropertyName("tag")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Tag { get; set; }
+    public string? Tag { get; set; }
 
     public TagData(){}
 
@@ -36,9 +36,9 @@ public class TagList
 {
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     [JsonPropertyName("tags")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public IEnumerable<TagData> Tags { get; set; }
+    public IEnumerable<TagData>? Tags { get; set; }
 }

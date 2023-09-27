@@ -10,7 +10,7 @@ public class Domain
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData? _error;
 
     public Domain(IApiConnection apiConnection, IMapper mapper, ILogger logger)
     {
@@ -24,8 +24,7 @@ public class Domain
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Domain:GetDNSRecords:domain["+domain+"]");
-     
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("domain/get-dns-records.json", DomainData.CreateNew(domain));
 
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
@@ -55,7 +54,7 @@ public class Domain
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:GetDNSRecords:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -64,7 +63,7 @@ public class Domain
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Domain:ValidateVerificationRecord:domain["+domain+"]");
-        string response = "";
+
         var apiResponse = await _apiConnection.SendMessageAsync("domain/validate-verification-record.json", DomainData.CreateNew(domain));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -93,7 +92,7 @@ public class Domain
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:ValidateVerificationRecord:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -102,7 +101,7 @@ public class Domain
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Domain:ValidateDkim:domain["+domain+"]");
-        string response = "";
+
         var apiResponse = await _apiConnection.SendMessageAsync("domain/validate-dkim.json", DomainData.CreateNew(domain));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -131,7 +130,7 @@ public class Domain
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:ValidateDkim:END");
 
-            return null;
+            return null!;
         }
     }
     
@@ -140,8 +139,7 @@ public class Domain
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("Domain:List:domain["+domain+"]:limit["+limit+"]:offset["+offset+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("domain/list.json", DomainData.CreateNew(domain,limit,offset));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -170,9 +168,9 @@ public class Domain
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Domain:List:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

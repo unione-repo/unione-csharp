@@ -9,49 +9,49 @@ public class EventDumpFilter
     /// </summary>
     [JsonPropertyName("job_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string JobId { get; set; }
+    public string? JobId { get; set; }
     
     /// <summary>
     /// Value from EventDumpStatus class
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
    
     /// <summary>
     /// Value from DeliveryStatus class
     /// </summary>
     [JsonPropertyName("delivery_status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string DeliveryStatus { get; set; }
+    public string? DeliveryStatus { get; set; }
     
     /// <summary>
     /// Recipient email address
     /// </summary>
     [JsonPropertyName("email")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Email { get; set; }
+    public string? Email { get; set; }
     
     /// <summary>
     /// Sender email address
     /// </summary>
     [JsonPropertyName("email_from")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EmailFrom { get; set; }
+    public string? EmailFrom { get; set; }
     
     /// <summary>
     /// Recipient domain
     /// </summary>
     [JsonPropertyName("domain")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Domain { get; set; }
+    public string? Domain { get; set; }
     
     /// <summary>
     /// Campaign identifier, unsigned decimal integer or UUID up to 128-bit, passed in metadata with name “campaign_id” (name is configurable thru support).
     /// </summary>
     [JsonPropertyName("campaign_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string CampaignId { get; set; }
+    public string? CampaignId { get; set; }
 }
 
 public class EventDumpRequest
@@ -61,14 +61,14 @@ public class EventDumpRequest
     /// </summary>
     [JsonPropertyName("start_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string StartTime { get; set; }
+    public string? StartTime { get; set; }
     
     /// <summary>
     /// Date and time in YYYY-MM-DD hh:mm:ss format, specifying period end time (non-inclusive).
     /// </summary>
     [JsonPropertyName("end_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string EndTime { get; set; }
+    public string? EndTime { get; set; }
     
     /// <summary>
     /// Maximum number of events returned (default is 50). If this value is over 100 000, several files will be created, each having 100 000 events maximum.
@@ -89,21 +89,21 @@ public class EventDumpRequest
     /// </summary>
     [JsonPropertyName("filter")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public EventDumpFilter Filter { get; set; }
+    public EventDumpFilter? Filter { get; set; }
     
     /// <summary>
     /// Field delimiter, can be set to either ‘,’ or ‘;’, defaults to ‘,’.
     /// </summary>
     [JsonPropertyName("delimiter")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Delimiter { get; set; }
+    public string? Delimiter { get; set; }
     
     /// <summary>
     /// File format, either “csv” (default) or “csv_gzip”.
     /// </summary>
     [JsonPropertyName("format")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Format { get; set; }
+    public string? Format { get; set; }
 }
 
 
@@ -237,35 +237,35 @@ public class EventDumpList
 {
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     [JsonPropertyName("event_dumps")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public IEnumerable<EventDump> EventDumps;
+    public IEnumerable<EventDump>? EventDumps;
 }
 
 public class EventDump
 {
     [JsonPropertyName("dump_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string DumpId { get; set; }
+    public string? DumpId { get; set; }
     
     [JsonPropertyName("dump_status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string DumpStatus { get; set; }
+    public string? DumpStatus { get; set; }
     
     [JsonPropertyName("files")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public IEnumerable<DumpFiles> Files { get; set; }
+    public IEnumerable<DumpFiles>? Files { get; set; }
 }
 
 public class DumpFiles
 {
     [JsonPropertyName("url")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Url { get; set; }
+    public string? Url { get; set; }
     
     [JsonPropertyName("size")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Size { get; set; }
+    public string? Size { get; set; }
 }

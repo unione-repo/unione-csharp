@@ -10,7 +10,7 @@ public class EmailValidation
     private readonly IApiConnection _apiConnection;
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
-    private ErrorData _error;
+    private ErrorData?_error;
 
     public EmailValidation(IApiConnection apiConnection, IMapper mapper,ILogger logger)
     {
@@ -23,8 +23,7 @@ public class EmailValidation
         _error = null;
         if(_apiConnection.IsLoggingEnabled())
             _logger.Information("EmailValidation:ValidationSingle:emailAddress["+emailAddress+"]");
-
-        string response = "";
+        
         var apiResponse = await _apiConnection.SendMessageAsync("email-validation/single.json", EmailAddressData.CreateNew(emailAddress));
         if (!apiResponse.Item1.ToLower().Contains("error") && !apiResponse.Item2.ToLower().Contains("error") && !apiResponse.Item1.ToLower().Contains("cancelled"))
         {
@@ -54,9 +53,9 @@ public class EmailValidation
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("EmailValidation:ValidationSingle:END");
 
-            return null;
+            return null!;
         }
     }
     
-    public ErrorData GetError() => _error;
+    public ErrorData? GetError() => _error;
 }

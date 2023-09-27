@@ -3,14 +3,14 @@ namespace UniOneTests;
 public class EmailRecipientDataTests
 {
     [Theory]
-        [InlineData("John Doe", "john.doe@example.com", "12345", "campaign123", "hash123", null)]
-        [InlineData("Jane Smith", "jane.smith@example.com", "67890", "campaign456", "hash456", "Key1=Value1,Key2=Value2")]
-        public void CreateRecipient_ValidInput_ShouldReturnValidRecipient(string name, string emailAddress, string customerId, string campaignId, string customerHash, string substitutions)
+        [InlineData("John Doe", "john.doe@example.com", null)]
+        [InlineData("Jane Smith", "jane.smith@example.com", "Key1=Value1,Key2=Value2")]
+        public void CreateRecipient_ValidInput_ShouldReturnValidRecipient(string name, string emailAddress, string substitutions)
         {
             // Arrange
 
             // Convert the substitutions string to a Dictionary<string, string>
-            Dictionary<string, string> substitutionsDict = ParseSubstitutions(substitutions);
+            Dictionary<string, string>? substitutionsDict = ParseSubstitutions(substitutions);
 
             // Act
             var recipient = EmailRecipientData.CreateRecipient(name, emailAddress, new Dictionary<Object,Object>());
@@ -32,7 +32,7 @@ public class EmailRecipientDataTests
             Assert.Throws<IncorrectEmailAdressException>(() => EmailRecipientData.CreateRecipient("Test Name", invalidEmailAddress, null));
         }
 
-        private Dictionary<string, string> ParseSubstitutions(string substitutions)
+        private Dictionary<string, string>? ParseSubstitutions(string substitutions)
         {
             if (string.IsNullOrEmpty(substitutions))
                 return null;

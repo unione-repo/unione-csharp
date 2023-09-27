@@ -9,36 +9,36 @@ public class DomainData
     /// </summary>
     [JsonPropertyName("domain")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Domain { get; set; }
+    public string? Domain { get; set; }
     public int Limit { get; set; }
     public int Offset { get; set; }
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     /// <summary>
     /// Record to be added “as is” to verify ownership of this domain.
     /// </summary>
-    public string Verification_record { get; set; }
+    public string? Verification_record { get; set; }
     
     /// <summary>
     /// DKIM signature for the domain. This property contains only the key part, you should prepend it with “k=rsa, p=” part for the record to be valid (see example).
     /// </summary>
-    public string sDkim { get; set; }
+    public string? sDkim { get; set; }
     
     /// <summary>
     /// Object describing verification record value and status.
     /// </summary>
     [JsonPropertyName("verification-record")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public VerificationRecord VerificationRecord { get; set; }
+    public VerificationRecord? VerificationRecord { get; set; }
     
     /// <summary>
     /// Object describing DKIM record value and status.
     /// </summary>
     [JsonPropertyName("dkim")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public DKIM DKIM { get; set; }
+    public DKIM? DKIM { get; set; }
 
     public DomainData()
     {
@@ -59,8 +59,8 @@ public class DomainData
 
 public class DomainList
 {
-    public string status { get; set; }
-    public IEnumerable<DomainData> domains { get; set; }
+    public string? status { get; set; }
+    public IEnumerable<DomainData>? domains { get; set; }
 }
 
 public class VerificationRecord
@@ -70,14 +70,14 @@ public class VerificationRecord
     /// </summary>
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Value { get; set; }
+    public string? Value { get; set; }
     
     /// <summary>
     /// Only domains with “confirmed” verification record are allowed as sender domains.
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     public VerificationRecord(){}
 
@@ -100,14 +100,14 @@ public class DKIM
     /// </summary>
     [JsonPropertyName("key")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Key { get; set; }
+    public string? Key { get; set; }
     
     /// <summary>
     /// Only domains with “active” DKIM record are allowed as sender domains.
     /// </summary>
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string Status { get; set; }
+    public string? Status { get; set; }
     
     public DKIM(){}
 

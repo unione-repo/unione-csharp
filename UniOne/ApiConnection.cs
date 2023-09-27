@@ -28,27 +28,30 @@ public class ApiConnection: IApiConnection
             client.DefaultRequestHeaders.Add("X-API-KEY", _apiConfiguration.GetApiKey());
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            string requestBody = requestBody = !request.ToString().Contains("{") ? JsonSerializer.Serialize(request) : request.ToString();
-            
-            var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+            string? requestBody = requestBody = !request.ToString()!.Contains("{") ? JsonSerializer.Serialize(request) : request.ToString();
 
-            try
+            if (requestBody != null)
             {
-                var response = await client.PostAsync(command, content, cancellationTokenSource.Token);
+                var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
-                if (cancellationTokenSource.IsCancellationRequested)
+                try
+                {
+                    var response = await client.PostAsync(command, content, cancellationTokenSource.Token);
+
+                    if (cancellationTokenSource.IsCancellationRequested)
+                    {
+                        apiResponse = "Request cancelled due to timeout.";
+                    }
+                    else
+                    {
+                        apiResponse = response.StatusCode.ToString();
+                        responseBody = await response.Content.ReadAsStringAsync();
+                    }
+                }
+                catch (TaskCanceledException)
                 {
                     apiResponse = "Request cancelled due to timeout.";
                 }
-                else
-                {
-                    apiResponse = response.StatusCode.ToString();
-                    responseBody = await response.Content.ReadAsStringAsync();
-                }
-            }
-            catch (TaskCanceledException)
-            {
-                apiResponse = "Request cancelled due to timeout.";
             }
 
             return (apiResponse, responseBody);

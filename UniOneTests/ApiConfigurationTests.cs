@@ -35,6 +35,7 @@ public class ApiConfigurationTests
             ApiConfiguration.CreateNew(serverAddress, apiUrl, apiVersion, apiKey, enableLogging, timeout);
         });
     }
+    [Fact]
     public void CreateNew_ShouldThrowEmptyApiConfigurationExceptionForMissingServerAddress()
     {
         // Arrange
