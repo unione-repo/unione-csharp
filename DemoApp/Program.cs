@@ -67,6 +67,7 @@ var recipients = new List<EmailRecipientData> { new EmailRecipientData { EmailAd
 var headers = new Dictionary<string, string> { { "X-MyHeader", "some data" }, {"List-Unsubscribe","<mailto: unsubscribe@example.com?subject=unsubscribe>, <http://www.example.com/unsubscribe/{{CustomerId}}>"} };
 var attachments = new List<Attachment> { new Attachment { Name = "readme.txt", Type = "text/plain", Content = "SGVsbG8sIHdvcmxkIQ=="} };
 var inline_attachments = new List<Attachment> { new Attachment { Name = "IMAGECID1", Type = "image/gif", Content = "R0lGODdhAwADAIABAP+rAP///ywAAAAAAwADAAACBIQRBwUAOw=="} };
+var options = new Options(){SendAt = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss"), UnsubscribeUrl = "https://example.org/unsubscribe/{{CustomerId}}"};
 
 emailMessageData.Recipients = recipients;
 emailMessageData.Tags = new List<string> { "tag1" };
@@ -87,6 +88,7 @@ emailMessageData.BypassComplained = 0;
 emailMessageData.Headers = headers;
 emailMessageData.Attachments = attachments; 
 emailMessageData.InlineAttachments = inline_attachments;
+emailMessageData.Options = options;
 
 Console.WriteLine("Testing Email.Send...");
 var email = await uniOne.Email.Send(emailMessageData);
