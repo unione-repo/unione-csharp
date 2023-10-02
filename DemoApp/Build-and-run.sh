@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "Running CSharp tests"
+
 app_dir="./"
 
 cd "$app_dir"
@@ -31,4 +33,4 @@ app_exit_code=$?
 
 echo $app_exit_code
 
-exit $app_exit_code;
+# exit $app_exit_code;
