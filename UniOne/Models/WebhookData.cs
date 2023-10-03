@@ -55,7 +55,7 @@ public class WebhookData
     /// </summary>
     [JsonPropertyName("events")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Events { get; set; }
+    public Event? Events { get; set; }
     
     /// <summary>
     /// Webhook properties last update date and time in UTC timezone in “YYYY-MM-DD hh:mm:ss” format.
@@ -85,14 +85,14 @@ public class Event
     /// </summary>
     [JsonPropertyName("spam_block")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Spam_block;
-    
+    public List<string> Spam_block { get; set; }
+
     /// <summary>
     /// If present then email status change events will be reported. Contains names of statuses to notify of. List of values from EmailStatus class
     /// </summary>
     [JsonPropertyName("email_status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<EmailStatus>? Email_status;
+    public List<string> Email_status { get; set; }
 }
 
 
@@ -102,6 +102,7 @@ public class EmailStatus
     public const string Opened = "opened";
     public const string Clicked = "clicked";
     public const string Unsubscribed = "unsubscribed";
+    public const string Subscribed = "subscribed";
     public const string Soft_bounced ="soft_bounced";
     public const string Hard_bounced = "hard_bounced";
     public const string Spam = "spam";

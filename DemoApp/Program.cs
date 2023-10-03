@@ -1,8 +1,8 @@
 ﻿
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using UniOne.Models;
-using UniOne = UniOne.UniOne;
 
 IConfiguration configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -193,11 +193,45 @@ Console.WriteLine("Testing Webhook.Get...");
 var webhook = await uniOne.Webhook.Get(configuration["UniOne:WebhookUrl"]?.ToString() ?? string.Empty);
 if (webhook == null)
 {
-    errors.Add("Webhook.Get");
-    var error = uniOne.Webhook.GetError();
-    Console.WriteLine("Webhook.Get - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
-}
+    var spamBlocked = new List<string>() { "*" };
+    var emailStatus = new List<string>()
+    {
+        EmailStatus.Delivered, EmailStatus.Opened, EmailStatus.Clicked, EmailStatus.Unsubscribed,
+        EmailStatus.Subscribed, EmailStatus.Soft_bounced, EmailStatus.Hard_bounced, EmailStatus.Spam
+    };
 
+    var events = new Event
+    {
+        Spam_block = spamBlocked,
+        Email_status = emailStatus
+    };
+    
+    Console.WriteLine("Webhood not found, creating new one");
+    var newWebhook = await uniOne.Webhook.Set(new WebhookData()
+    {
+        Url = configuration["UniOne:WebhookUrl"]?.ToString(), 
+        Status = WebhookStatus.Active, 
+        EventFormat = "json_post",
+        MaxParallel = 10,
+        SingleEvent = 0,
+        DeliveryInfo = 0,
+        Events = events,
+    });
+
+    if (newWebhook != null)
+    {
+        Console.WriteLine("Webhood created successfully");
+        Console.WriteLine("Testing Webhook.Get...");
+        var webhook_new = await uniOne.Webhook.Get(configuration["UniOne:WebhookUrl"]?.ToString() ?? string.Empty);
+        if (webhook_new == null)
+        {
+            errors.Add("Webhook.Get");
+            var error = uniOne.Webhook.GetError();
+            Console.WriteLine("Webhook.Get - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+        }
+    }
+   
+}
 
 if (errors.Count > 0 )
     return 1;
