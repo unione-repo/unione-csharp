@@ -96,7 +96,11 @@ if (email == null)
 {
     errors.Add(("Email.Send"));
     var error = uniOne.Email.GetError();
-    Console.WriteLine("Email.Send - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Email.Send - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Template.List...");
@@ -105,7 +109,11 @@ if (list == null)
 {
     errors.Add(("Template.List"));
     var error = uniOne.Template.GetError();
-    Console.WriteLine("Template.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Template.List - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Generic.CustomRequest...");
@@ -114,7 +122,11 @@ if (customRequest == null)
 {
     errors.Add("Generic.CustomRequest");
     var error = uniOne.Generic.GetError();
-    Console.WriteLine("Generic.CustomRequest - APIErrorCode: " + error!.Details!.Code + "-" + error.Details.CodeDescription);
+    Console.WriteLine("Generic.CustomRequest - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing System.SystemInfo...");
@@ -123,7 +135,11 @@ if (systemInfo == null)
 {
     errors.Add(("System.SystemInfo"));
     var error = uniOne.System.GetError();
-    Console.WriteLine("System.SystemInfo - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("System.SystemInfo - APIErrorCode:");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Webhook.List...");
@@ -132,7 +148,11 @@ if (systemInfo == null)
 {
     errors.Add("Webhook.List");
     var error = uniOne.Webhook.GetError();
-    Console.WriteLine("Webhook.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Webhook.List - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Suppression.List...");
@@ -141,7 +161,11 @@ if (suppressionList == null)
 {
     errors.Add("Suppression.List");
     var error = uniOne.Suppression.GetError();
-    Console.WriteLine("Suppression.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Suppression.List - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Domain.List...");
@@ -150,7 +174,11 @@ if (domainList == null)
 {
     errors.Add("Domain.List");
     var error = uniOne.Domain.GetError();
-    Console.WriteLine("Domain.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Domain.List - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing EventDump.List...");
@@ -159,7 +187,11 @@ if (eventDumpList == null)
 {
     errors.Add("EventDump.List");
     var error = uniOne.EventDump.GetError();
-    Console.WriteLine("EventDump.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("EventDump.List - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Tag.List...");
@@ -168,7 +200,11 @@ if (tagList == null)
 {
     errors.Add("Tag.List");
     var error = uniOne.Tag.GetError();
-    Console.WriteLine("Tag.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Tag.List - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Project.List...");
@@ -177,7 +213,11 @@ if (projectList == null)
 {
     errors.Add("Project.List");
     var error = uniOne.Project.GetError();
-    Console.WriteLine("Project.List - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Project.List - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Obsolete.UnsubscribedList...");
@@ -186,7 +226,11 @@ if (unsubscribedList == null)
 {
     errors.Add("Obsolete.UnsubscribedList");
     var error = uniOne.Obsolete.GetError();
-    Console.WriteLine("Obsolete.UnsubscribedList - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+    Console.WriteLine("Obsolete.UnsubscribedList - APIErrorCode");
+    Console.WriteLine("*API Code* - " + error!.Details!.Code);
+    Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+    Console.WriteLine("*Message* - " + error!.Details!.Message);
+    Console.WriteLine("*Status* - " + error!.Details!.Status);
 }
 
 Console.WriteLine("Testing Webhook.Get...");
@@ -227,7 +271,11 @@ if (webhook == null)
         {
             errors.Add("Webhook.Get");
             var error = uniOne.Webhook.GetError();
-            Console.WriteLine("Webhook.Get - APIErrorCode: " + error!.Details!.Code + "- " + error.Details.CodeDescription);
+            Console.WriteLine("Webhook.Get - APIErrorCode");
+            Console.WriteLine("*API Code* - " + error!.Details!.Code);
+            Console.WriteLine("*Code Description* - " + error!.Details!.CodeDescription);
+            Console.WriteLine("*Message* - " + error!.Details!.Message);
+            Console.WriteLine("*Status* - " + error!.Details!.Status);
         }
     }
    
