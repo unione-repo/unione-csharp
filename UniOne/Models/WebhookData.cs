@@ -85,14 +85,14 @@ public class Event
     /// </summary>
     [JsonPropertyName("spam_block")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string> Spam_block { get; set; }
+    public List<string>? Spam_block { get; set; }
 
     /// <summary>
     /// If present then email status change events will be reported. Contains names of statuses to notify of. List of values from EmailStatus class
     /// </summary>
     [JsonPropertyName("email_status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string> Email_status { get; set; }
+    public List<string>? Email_status { get; set; }
 }
 
 
