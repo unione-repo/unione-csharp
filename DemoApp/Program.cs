@@ -63,7 +63,7 @@ var uniOne = new global::UniOne.UniOne(configuration);
 List<string> errors = new List<string>();
 
 var emailMessageData = new EmailMessageData();
-var recipients = new List<EmailRecipientData> { new EmailRecipientData { EmailAddress = "user@example.com"}};
+var recipients = new List<EmailRecipientData> { new EmailRecipientData { EmailAddress = configuration["UniOne:FromEmail"]?.ToString() ?? "user@example.com"}};
 var headers = new Dictionary<string, string> { { "X-MyHeader", "some data" }, {"List-Unsubscribe","<mailto: unsubscribe@example.com?subject=unsubscribe>, <http://www.example.com/unsubscribe/{{CustomerId}}>"} };
 var attachments = new List<Attachment> { new Attachment { Name = "readme.txt", Type = "text/plain", Content = "SGVsbG8sIHdvcmxkIQ=="} };
 var inline_attachments = new List<Attachment> { new Attachment { Name = "IMAGECID1", Type = "image/gif", Content = "R0lGODdhAwADAIABAP+rAP///ywAAAAAAwADAAACBIQRBwUAOw=="} };
