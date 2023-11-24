@@ -35,8 +35,6 @@ public class ErrorDetailsData
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int Code { get; set; }
     
-    public string? CodeDescription { get; set; }
-
     public ErrorDetailsData(){}
 
     private ErrorDetailsData(string status, string message, int code)

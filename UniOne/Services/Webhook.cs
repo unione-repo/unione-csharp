@@ -45,8 +45,7 @@ public class Webhook
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
-            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Webhook:Set:END");
@@ -84,8 +83,7 @@ public class Webhook
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
-            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Webhook:Get:END");
@@ -123,8 +121,7 @@ public class Webhook
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
-            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Webhook:List:END");
@@ -162,8 +159,7 @@ public class Webhook
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
-            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Webhook:Delete:END");

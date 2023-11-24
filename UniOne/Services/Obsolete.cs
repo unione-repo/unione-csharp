@@ -47,8 +47,7 @@ public class Obsolete
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
-            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Obsolete:UnsubscribedSet:END");
@@ -86,8 +85,7 @@ public class Obsolete
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
-            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Obsolete:UnsubscribedCheck:END");
@@ -125,8 +123,7 @@ public class Obsolete
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
-            this._error.Details.CodeDescription = ApiErrorData.GetError(this._error.Details.Code); 
+            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
             
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Obsolete:UnsubscribedList:END");
