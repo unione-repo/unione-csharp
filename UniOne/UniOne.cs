@@ -14,7 +14,7 @@ public class UniOne : IUniOne
     
     private string _x_api_key = "";
     private string _server = "";
-    private int _serverTimeout = 5;
+    private int _serverTimeout = 0;
     private bool _enableLogging = false;
     private string _apiUrl = "";
     private string _apiVersion = "";
@@ -59,10 +59,10 @@ public class UniOne : IUniOne
         
         _x_api_key = config["X-API-KEY"]?.ToString() ?? string.Empty;
         _server = config["ServerAddress"]?.ToString() ?? string.Empty;
-        _serverTimeout = int.Parse(config["ServerTimeout"]?.ToString() ?? string.Empty);
+        _serverTimeout = int.Parse(config["ServerTimeout"]?.ToString() ?? "5000");
         _enableLogging = bool.Parse(config["EnableLogging"]?.ToString( )?? "false");
-        _apiUrl = config["ApiUrl"]?.ToString() ?? string.Empty;
-        _apiVersion = config["ApiVersion"]?.ToString() ?? string.Empty;
+        _apiUrl = config["ApiUrl"]?.ToString() ?? "en/transactional/api/";
+        _apiVersion = config["ApiVersion"]?.ToString() ?? "v1";
         
         _logger = new LoggerConfiguration()
             .WriteTo.Console()
