@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿
+using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,29 +8,25 @@ public class SuppressionData
     /// <summary>
     /// “success” string
     /// </summary>
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? Status { get; set; }
     
     /// <summary>
     /// The email for which suppression details were requested.
     /// </summary>
-    [JsonPropertyName("cause")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("cause", NullValueHandling = NullValueHandling.Ignore)]
     public string? Email { get; set; }
     
     /// <summary>
     /// The parameter indicates from which position the selection is to be started. Must be empty or omitted for the first data chunk. In order to get subsequent chunks, you must set the “cursor” parameter in your request, using the value received in response to the previous request.
     /// </summary>
-    [JsonPropertyName("cursor")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("cursor", NullValueHandling = NullValueHandling.Ignore)]
     public string? Cursor { get; set; }
     
     /// <summary>
     /// Array of suppression objects.
     /// </summary>
-    [JsonPropertyName("suppressions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("suppressions", NullValueHandling = NullValueHandling.Ignore)]
     public List<SuppressionsData>? Suppressions { get; set; }
 
     public SuppressionData(){}
@@ -40,15 +37,13 @@ public class SuppressionsData
     /// <summary>
     /// Unqiue project identifier, ASCII string up to 36 characters long.
     /// </summary>
-    [JsonPropertyName("project_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("project_id", NullValueHandling = NullValueHandling.Ignore)]
     public string? ProjectId { get; set; }
     
     /// <summary>
     /// Value from SuppressionCause class
     /// </summary>
-    [JsonPropertyName("cause")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("cause", NullValueHandling = NullValueHandling.Ignore)]
     public string? Cause { get; set; }
     
     /// <summary>
@@ -57,29 +52,25 @@ public class SuppressionsData
     /// system - sending to the email is prohibited by system, for example due to multiple hard bounces;
     /// subscriber - the recipient reported spam or unsubscribed in the previous emails.
     /// </summary>
-    [JsonPropertyName("source")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("source", NullValueHandling = NullValueHandling.Ignore)]
     public string? Source { get; set; }
     
     /// <summary>
     /// Is it possible to delete this suppression by calling suppression/delete method.
     /// </summary>
-    [JsonPropertyName("is_deletable")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("is_deletable", NullValueHandling = NullValueHandling.Ignore)]
     public bool Is_deletable { get; set; }
     
     /// <summary>
     /// When suppression was created, in UTC timezone in “YYYY-MM-DD hh:mm:ss” format.
     /// </summary>
-    [JsonPropertyName("created")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
     public DateTime Created { get; set; }
     
     /// <summary>
     /// Limits the number of records to be returned at one time, default is 50.
     /// </summary>
-    [JsonPropertyName("limit")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("limit", NullValueHandling = NullValueHandling.Ignore)]
     public int Limit { get; set; }
 
     public SuppressionsData() { }
@@ -160,8 +151,7 @@ public class SuppressionListFilters
     /// <summary>
     /// Value from SuppressionCause class
     /// </summary>
-    [JsonPropertyName("cause")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("cause", NullValueHandling = NullValueHandling.Ignore)]
     public string? Cause { get; set; }
     
     /// <summary>
@@ -170,30 +160,26 @@ public class SuppressionListFilters
     ///     system - sending to the email is prohibited by system, for example due to multiple hard bounces;
     ////    subscriber - the recipient reported spam or unsubscribed in the previous emails.
     /// </summary>
-    [JsonPropertyName("source")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("source", NullValueHandling = NullValueHandling.Ignore)]
     public string? Source { get; set; }
     
     /// <summary>
     /// Date in the format YYYY-MM-DD hh:mm:ss to get suppression list from the “start_time” to the present day. Ignored if “cursor” is not empty.
     /// </summary>
-    [JsonPropertyName("start_time")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("start_time", NullValueHandling = NullValueHandling.Ignore)]
     public DateTime? StartTime { get; set; }
     
     /// <summary>
     /// The parameter indicates from which position the selection is to be started. Must be empty or omitted for the first data chunk.
     /// In order to get subsequent chunks, you must set the “cursor” parameter in your request, using the value received in response to the previous request.
     /// </summary>
-    [JsonPropertyName("cursor")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("cursor", NullValueHandling = NullValueHandling.Ignore)]
     public string? Cursor { get; set; }
     
     /// <summary>
     /// Limits the number of records to be returned at one time, default is 50.
     /// </summary>
-    [JsonPropertyName("limit")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    [JsonProperty("limit", NullValueHandling = NullValueHandling.Ignore)]
     public int Limit { get; set; }
 
 

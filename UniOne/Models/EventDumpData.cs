@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,50 +7,43 @@ public class EventDumpFilter
     /// <summary>
     /// Job identifier returned earlier by email/send method.
     /// </summary>
-    [JsonPropertyName("job_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("job_id", NullValueHandling = NullValueHandling.Ignore)]
     public string? JobId { get; set; }
     
     /// <summary>
     /// Value from EventDumpStatus class
     /// </summary>
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? Status { get; set; }
    
     /// <summary>
     /// Value from DeliveryStatus class
     /// </summary>
-    [JsonPropertyName("delivery_status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("delivery_status", NullValueHandling = NullValueHandling.Ignore)]
     public string? DeliveryStatus { get; set; }
     
     /// <summary>
     /// Recipient email address
     /// </summary>
-    [JsonPropertyName("email")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
     public string? Email { get; set; }
     
     /// <summary>
     /// Sender email address
     /// </summary>
-    [JsonPropertyName("email_from")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("email_from", NullValueHandling = NullValueHandling.Ignore)]
     public string? EmailFrom { get; set; }
     
     /// <summary>
     /// Recipient domain
     /// </summary>
-    [JsonPropertyName("domain")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("domain", NullValueHandling = NullValueHandling.Ignore)]
     public string? Domain { get; set; }
     
     /// <summary>
     /// Campaign identifier, unsigned decimal integer or UUID up to 128-bit, passed in metadata with name “campaign_id” (name is configurable thru support).
     /// </summary>
-    [JsonPropertyName("campaign_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("campaign_id", NullValueHandling = NullValueHandling.Ignore)]
     public string? CampaignId { get; set; }
 }
 
@@ -59,50 +52,43 @@ public class EventDumpRequest
     /// <summary>
     /// Date and time in YYYY-MM-DD hh:mm:ss format, specifying period start time. Data is stored for up to 32 days, depending on your tariff.
     /// </summary>
-    [JsonPropertyName("start_time")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("start_time", NullValueHandling = NullValueHandling.Ignore)]
     public string? StartTime { get; set; }
     
     /// <summary>
     /// Date and time in YYYY-MM-DD hh:mm:ss format, specifying period end time (non-inclusive).
     /// </summary>
-    [JsonPropertyName("end_time")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("end_time", NullValueHandling = NullValueHandling.Ignore)]
     public string? EndTime { get; set; }
     
     /// <summary>
     /// Maximum number of events returned (default is 50). If this value is over 100 000, several files will be created, each having 100 000 events maximum.
     /// </summary>
-    [JsonPropertyName("limit")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("limit", NullValueHandling = NullValueHandling.Ignore)]
     public int? Limit { get; set; }
     
     /// <summary>
     /// For accounts with projects enabled, the value all_projects=true allows to fetch data for all existing projects.
     /// </summary>
-    [JsonPropertyName("all_projects")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("all_projects", NullValueHandling = NullValueHandling.Ignore)]
     public bool? AllProjects { get; set; }
     
     /// <summary>
     /// An object with the properties of the event dump filter.
     /// </summary>
-    [JsonPropertyName("filter")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
     public EventDumpFilter? Filter { get; set; }
     
     /// <summary>
     /// Field delimiter, can be set to either ‘,’ or ‘;’, defaults to ‘,’.
     /// </summary>
-    [JsonPropertyName("delimiter")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("delimiter", NullValueHandling = NullValueHandling.Ignore)]
     public string? Delimiter { get; set; }
     
     /// <summary>
     /// File format, either “csv” (default) or “csv_gzip”.
     /// </summary>
-    [JsonPropertyName("format")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("format", NullValueHandling = NullValueHandling.Ignore)]
     public string? Format { get; set; }
 }
 
@@ -235,37 +221,30 @@ public class DeliveryStatus
 
 public class EventDumpList
 {
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? Status { get; set; }
     
-    [JsonPropertyName("event_dumps")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("event_dumps", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<EventDump>? EventDumps;
 }
 
 public class EventDump
 {
-    [JsonPropertyName("dump_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("dump_id", NullValueHandling = NullValueHandling.Ignore)]
     public string? DumpId { get; set; }
     
-    [JsonPropertyName("dump_status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("dump_status", NullValueHandling = NullValueHandling.Ignore)]
     public string? DumpStatus { get; set; }
     
-    [JsonPropertyName("files")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("files", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<DumpFiles>? Files { get; set; }
 }
 
 public class DumpFiles
 {
-    [JsonPropertyName("url")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
     public string? Url { get; set; }
     
-    [JsonPropertyName("size")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("size", NullValueHandling = NullValueHandling.Ignore)]
     public string? Size { get; set; }
 }

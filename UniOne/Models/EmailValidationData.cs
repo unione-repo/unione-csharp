@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,15 +7,13 @@ public class EmailValidationData
     /// <summary>
     /// “success” string
     /// </summary>
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? Status { get; set; }
     
     /// <summary>
     /// Email address to be checked.
     /// </summary>
-    [JsonPropertyName("email")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
     public string? Email { get; set; }
     
     /// <summary>
@@ -25,8 +23,7 @@ public class EmailValidationData
     ///  “suspicious” - the address looks suspicious,
     ///  “unknown” - could not perform validation, the domain’s mail server has not responded within the time limit.
     /// </summary>
-    [JsonPropertyName("result")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
     public string? Result { get; set; }
     
     /// <summary>
@@ -42,57 +39,49 @@ public class EmailValidationData
     ///   “spamtrap” - this email is a spam trap, it is published openly but never used for actual emails. Sending messages to such addresses has a huge negative impact on reputation score,
     ///   “smtp_connection_failed” - the domain’s SMTP server does not respond; the address may contain a typo.
     /// </summary>
-    [JsonPropertyName("cause")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("cause", NullValueHandling = NullValueHandling.Ignore)]
     public string? Cause { get; set; }
     
     /// <summary>
     /// Validity score, from 0 to 100 (0 – invalid, 100 – valid).
     /// </summary>
-    [JsonPropertyName("validity")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("validity", NullValueHandling = NullValueHandling.Ignore)]
     public int Validity { get; set; }
     
     /// <summary>
     /// Local part (everything preceding the @ sign).
     /// </summary>
-    [JsonPropertyName("local_part")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("local_part", NullValueHandling = NullValueHandling.Ignore)]
     public string? LocalPart { get; set; }
     
     /// <summary>
     /// Domain name part.
     /// </summary>
-    [JsonPropertyName("domain")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("domain", NullValueHandling = NullValueHandling.Ignore)]
     public string? Domain { get; set; }
     
     /// <summary>
     /// True if the address’ domain does have an MX record, false if does not.
     /// </summary>
-    [JsonPropertyName("mx_found")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("mx_found", NullValueHandling = NullValueHandling.Ignore)]
     public bool MxFound { get; set; }
     
     /// <summary>
     /// Preferred MX record for the domain.
     /// </summary>
-    [JsonPropertyName("mx_record")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("mx_record", NullValueHandling = NullValueHandling.Ignore)]
     public string? MxRecord { get; set; }
     
     /// <summary>
     /// For addresses which are likely to have typing errors (cause=possible_typo), a suggested variant with a fixed typo.
     /// </summary>
-    [JsonPropertyName("did_you_mean")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("did_you_mean", NullValueHandling = NullValueHandling.Ignore)]
     public string? DidYouMean { get; set; }
     
     /// <summary>
     /// Email check date and time, YYYY-MM-DD hh:mm:ss UTC.
     /// </summary>
-    [JsonPropertyName("processed_at")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("processed_at", NullValueHandling = NullValueHandling.Ignore)]
     public DateTime? ProcessedAt { get; set; }
 
     public EmailValidationData(){}

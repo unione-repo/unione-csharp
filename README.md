@@ -103,11 +103,11 @@ Method related to sending emails.
 - async Task<UnsubscribedList> UnsubscribedList(string emailAddress)
 
 **Generic**
-- async Task<IOperationResult<object>> CustomRequest(string request, object obj) - method allowing to send custom request to UniOne API 
+- async Task<T> CustomRequest<T>(string request, object obj, Func<string, string, OperationResult<T>> operationResultCreator) where T : class - method allowing to send custom request to UniOne API 
 
 Before you send custom request, you have to provide expected class for method result.
 ```
-var customRequest = await uniOne.Generic.CustomRequest<TemplateList>("template/list.json", "{\"limit\": 50,\"offset\":0}");
+var customRequest = await uniOne.Generic.CustomRequest<TemplateList>("template/list.json", "{\"limit\": 50,\"offset\":0}", (status, response) => OperationResult<TemplateList>.CreateNew(status, response));
 
 if (customRequest == null)
 {

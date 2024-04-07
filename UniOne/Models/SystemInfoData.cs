@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,40 +7,34 @@ public class SystemInfoData
     /// <summary>
     /// “success” string
     /// </summary>
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? Status { get; set; }
     
     /// <summary>
     /// Unique user identifier.
     /// </summary>
-    [JsonPropertyName("user_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("user_id", NullValueHandling = NullValueHandling.Ignore)]
     public int UserId { get; set; }
     
     /// <summary>
     /// Email of the user.
     /// </summary>
-    [JsonPropertyName("email")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
     public string? EmailAddress { get; set; }
     
     /// <summary>
     /// Unqiue project identifier, ASCII string up to 36 characters long. Present only if the API key used for request is the project API key
     /// </summary>
-    [JsonPropertyName("project_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("project_id", NullValueHandling = NullValueHandling.Ignore)]
     public string? ProjectId { get; set; }
     
     /// <summary>
     /// Project name, unique for user account. Present only if the API key used for request is the project API key.
     /// </summary>
-    [JsonPropertyName("project_name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("project_name", NullValueHandling = NullValueHandling.Ignore)]
     public string? ProjectName { get; set; }
     
-    [JsonPropertyName("accounting")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("accounting", NullValueHandling = NullValueHandling.Ignore)]
     public AccountingData? Accounting { get; set; }
 
     public SystemInfoData(){}

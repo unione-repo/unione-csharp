@@ -47,8 +47,11 @@ public class Project
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Create:END");
 
@@ -85,8 +88,11 @@ public class Project
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Update:END");
 
@@ -133,8 +139,11 @@ public class Project
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:List:END");
 
@@ -171,8 +180,11 @@ public class Project
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Project:Delete:END");
 

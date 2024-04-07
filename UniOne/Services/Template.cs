@@ -48,8 +48,11 @@ public class Template
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:Set:END");
 
@@ -86,8 +89,11 @@ public class Template
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:Get:END");
 
@@ -124,8 +130,11 @@ public class Template
             
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:List:END");
 
@@ -162,8 +171,11 @@ public class Template
            
             this._error = new ErrorData();
             this._error.Status = apiResponse.Item1;
-            this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse()); 
-            
+            if (!this._error.Status.Contains("timeout"))
+                this._error.Details = _mapper.Map<ErrorDetailsData>(result.GetResponse());
+            else
+                this._error.Details = ErrorDetailsData.CreateNew("TIMEOUT", apiResponse.Item1, 0);
+
             if (_apiConnection.IsLoggingEnabled())
                 _logger.Information("Template:Detele:END");
 

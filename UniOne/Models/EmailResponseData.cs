@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,22 +7,19 @@ public class EmailResponseData
     /// <summary>
     /// “success” string
     /// </summary>
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? Status { get; set; }
     
     /// <summary>
     /// Job identifier, might be useful for investigating errors.
     /// </summary>
-    [JsonPropertyName("job_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("job_id", NullValueHandling = NullValueHandling.Ignore)]
     public string? JobId { get; set; }
     
     /// <summary>
     /// Array of recipients emails successfully accepted for sending.
     /// </summary>
-    [JsonPropertyName("emails")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("emails", NullValueHandling = NullValueHandling.Ignore)]
     public List<string>? Emails { get; set; }
     
     /// <summary>
@@ -40,7 +37,6 @@ public class EmailResponseData
     ///    blocked - sending to the email is prohibited by administration of UniOne.
     ///    We may added new statuses in the future.
     /// </summary>
-    [JsonPropertyName("failed_emails")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("failed_emails", NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<string, string>? FailedEmails { get; set; }  
 }

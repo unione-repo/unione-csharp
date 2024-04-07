@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,22 +7,19 @@ public class EmailSubscribeData
     /// <summary>
     /// Sender’s email.
     /// </summary>
-    [JsonPropertyName("from_email")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("from_email", NullValueHandling = NullValueHandling.Ignore)]
     public string? FromEmail { get; set; }
     
     /// <summary>
     /// Sender’s name.
     /// </summary>
-    [JsonPropertyName("from_name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("from_name", NullValueHandling = NullValueHandling.Ignore)]
     public string? FromName { get; set; }
     
     /// <summary>
     /// Recipient’s email.
     /// </summary>
-    [JsonPropertyName("to_email")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("to_email", NullValueHandling = NullValueHandling.Ignore)]
     public string? ToEmail { get; set; }
     
     private EmailSubscribeData(){}

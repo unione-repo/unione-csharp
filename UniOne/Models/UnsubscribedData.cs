@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,29 +7,25 @@ public class UnsubscribedData
     /// <summary>
     /// Email address
     /// </summary>
-    [JsonPropertyName("address")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
     public string? EmailAddress { get; set; }
     
     /// <summary>
     /// Date and time when a recipient unsubscribed, in UTC timezone and “YYYY-MM-DD hh:mm:ss” format.
     /// </summary>
-    [JsonPropertyName("unsubscribed_on")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("unsubscribed_on", NullValueHandling = NullValueHandling.Ignore)]
     public DateTime UnsubscribedOn { get; set; }
     
     /// <summary>
     /// true if unsubscribed, false if not.
     /// </summary>
-    [JsonPropertyName("is_unsubscribed")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("is_unsubscribed", NullValueHandling = NullValueHandling.Ignore)]
     public bool IsUnsubscribed { get; set; }
     
     /// <summary>
     /// Human-readable error message in English.
     /// </summary>
-    [JsonPropertyName("message")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("message", NullValueHandling = NullValueHandling.Ignore)]
     public string? Message { get; set; }
     
     private UnsubscribedData(){}
@@ -50,11 +46,9 @@ public class UnsubscribedData
 
 public class UnsubscribedList
 {
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? status { get; set; }
     
-    [JsonPropertyName("unsubscribed")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("unsubscribed", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<UnsubscribedData>? Unsubscribed { get; set; }
 }

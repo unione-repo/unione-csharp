@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using AutoMapper.Configuration.Annotations;
+﻿using AutoMapper.Configuration.Annotations;
+using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -15,24 +15,21 @@ public class ErrorDetailsData
     /// “error” string
     /// </summary>
     [SourceMember("status")]
-    [JsonPropertyName("status")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
     public string? Status { get; set; }
     
     /// <summary>
     /// Human-readable error message in English.
     /// </summary>
     [SourceMember("message")]
-    [JsonPropertyName("message")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("message", NullValueHandling = NullValueHandling.Ignore)]
     public string? Message { get; set; }
     
     /// <summary>
     /// API Error code - https://docs.unione.io/en/web-api-ref#api-errors
     /// </summary>
     [SourceMember("code")]
-    [JsonPropertyName("code")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
     public int Code { get; set; }
     
     public ErrorDetailsData(){}

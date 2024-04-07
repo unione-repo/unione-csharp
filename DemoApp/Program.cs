@@ -1,7 +1,6 @@
-﻿
-using System.Text.Json;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
+using UniOne;
 using UniOne.Models;
 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -115,7 +114,7 @@ if (list == null)
 }
 
 Console.WriteLine("Testing Generic.CustomRequest...");
-var customRequest = await uniOne.Generic.CustomRequest<TemplateList>("template/list.json", "{\"limit\": 50,\"offset\":0}");
+var customRequest = await uniOne.Generic.CustomRequest<TemplateList>("template/list.json", "{\"limit\": 50,\"offset\":0}", (status, response) => OperationResult<TemplateList>.CreateNew(status, response));
 if (customRequest == null)
 {
     errors.Add("Generic.CustomRequest");

@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace UniOne.Models;
 
@@ -7,29 +7,25 @@ public class AccountingData
     /// <summary>
     /// Date and time of accounting period start in UTC in “YYYY-MM-DD hh:mm:ss” format.
     /// </summary>
-    [JsonPropertyName("period_start")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("period_start", NullValueHandling = NullValueHandling.Ignore)]
     public DateTime PeriodStart { get; set; }
     
     /// <summary>
     /// Date and time of accounting period end in UTC in “YYYY-MM-DD hh:mm:ss” format.
     /// </summary>
-    [JsonPropertyName("period_end")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("period_end", NullValueHandling = NullValueHandling.Ignore)]
     public DateTime PeriodEnd { get; set; }
     
     /// <summary>
     /// Number of emails included into accounting period.
     /// </summary>
-    [JsonPropertyName("emails_included")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("emails_included", NullValueHandling = NullValueHandling.Ignore)]
     public int EmailsIncluded { get; set; }
     
     /// <summary>
     /// Number of emails sent during accounting period. Can be bigger than emails_included in case of overage.
     /// </summary>
-    [JsonPropertyName("emails_sent")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonProperty("emails_sent", NullValueHandling = NullValueHandling.Ignore)]
     public int EmailsSent { get; set; }
 
     public AccountingData()
