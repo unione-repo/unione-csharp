@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>UniOne.API.Lib</id>
+    <version>1.0.1</version>
+    <title>UniOne Email API C# Official Library</title>
+    <authors>UniOne developers</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/unione-repo/unione-csharp</projectUrl>
+    <description>UniOne Email API C# official library for send emails with unione.io email service</description>
+    <copyright>(C)2024 ECOMZ Holding Limited</copyright>
+    <readme>README.md</readme>
+    <icon>images/unione_logo_128x128.png</icon>
+    <dependencies>
+       <group targetFramework="net7.0">
+         <dependency id="AutoMapper" version="12.0.1" />
+         <dependency id="Microsoft.Extensions.Configuration" version="7.0.0" />
+         <dependency id="Newtonsoft.Json" version="13.0.3" />
+         <dependency id="Serilog" version="3.0.1" />
+         <dependency id="Serilog.Sinks.Console" version="4.1.0" />
+         <dependency id="Serilog.Sinks.File" version="5.0.0" />
+       </group>
+       <group>
+         <dependency id="AutoMapper" version="12.0.1" />
+         <dependency id="Microsoft.Extensions.Configuration" version="7.0.0" />
+         <dependency id="Newtonsoft.Json" version="13.0.3" />
+         <dependency id="Serilog" version="3.0.1" />
+         <dependency id="Serilog.Sinks.Console" version="4.1.0" />
+         <dependency id="Serilog.Sinks.File" version="5.0.0" />
+       </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/Release/net7.0/UniOne.dll" target="lib/net7.0"></file>
+    <file src="../unione_logo_128x128.png" target="images/"></file>
+    <file src="README.md"></file>
+  </files>
+</package>

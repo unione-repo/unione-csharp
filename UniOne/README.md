@@ -1,8 +1,9 @@
 # unione-csharp
-UniOne Email API C# library with demo app and tests, for sending emails with unione.io email service.
+UniOne Email API C# library for sending emails with unione.io email service.
 
 ## Installation
 Add UniOne library to your project references.
+.Net 7 is required.
 
 ## Usage
 ###Configuration
@@ -116,63 +117,3 @@ if (customRequest == null)
 
 ```
 
-### Running test 
-
-**Unit tests**
-
-Run RunTests.sh from UniOneTests solution.
-
-```
-$ ./RunTests.sh
-
-```
-
-Result should look like this:
-
-```
-  Determining projects to restore...
-  All projects are up-to-date for restore.
-  
-Microsoft (R) Test Execution Command Line Tool Version 17.5.0 (x64)
-Copyright (c) Microsoft Corporation.  All rights reserved.
-
-Starting test execution, please wait...
-A total of 1 test files matched the specified pattern.
-
-Passed!  - Failed:     0, Passed:    78, Skipped:     0, Total:    78, Duration: 10 ms - UniOneTests.dll (net7.0)
-
-```
-
-
-**DemoApp/Tests**
-
-From DemoApp directory run Build-and-run.sh which requires 4 arguments:
-
-```
-- **HOST_NAME** is the host for connection.
-- **API_KEY** is the API key used for connection.
-- **WEBHOOK_URL** is the url to set the webhook handler to.
-- **FROM_EMAIL** is the from_email parameter for email/send method.
-```
-
-Example:
-
-```
-
-./Build-and-run.sh https://eu1.unione.io/ MY_API_KEY https://someweb.site myTestAccount@test.ts
-
-```
-
-Script output should look like this:
-
-```
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:00.73
-Build successfull.
-Error count:0/11
-
-```
